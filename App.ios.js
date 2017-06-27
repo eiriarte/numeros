@@ -1,24 +1,58 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { TabBarIOS, Text, View } from 'react-native';
 
-export default class App extends React.Component {
+// import NavigatorTranslator from './src/components/Translator';
+// import NavigatorTime from './src/components/Time';
+// import NavigatorLearn from './src/components/Learn';
+
+export default class TabbedUI extends React.Component {
+  state = {
+    selected: 'TranslatorTab'
+  };
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-        <Text>(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</Text>
-      </View>
+      <TabBarIOS>
+        <TabBarIOS.Item title="Translator"
+          icon={require('./img/search.png')}
+          selected={this.state.selected === "TranslatorTab"}
+          onPress={() => {
+            this.setState({ selected: 'TranslatorTab' });
+          }}>
+          <View><Text>Tab 1</Text></View>
+        </TabBarIOS.Item>
+        <TabBarIOS.Item title="Date"
+          icon={require('./img/calendar.png')}
+          selected={this.state.selected === "DateTab"}
+          onPress={() => {
+            this.setState({ selected: 'DateTab' });
+          }}>
+          <View><Text>Tab 2</Text></View>
+        </TabBarIOS.Item>
+        <TabBarIOS.Item title="Time"
+          icon={require('./img/calendar.png')}
+          selected={this.state.selected === "TimeTab"}
+          onPress={() => {
+            this.setState({ selected: 'TimeTab' });
+          }}>
+          <View><Text>Tab 3</Text></View>
+        </TabBarIOS.Item>
+        <TabBarIOS.Item title="Learn"
+          icon={require('./img/book.png')}
+          selected={this.state.selected === "LearnTab"}
+          onPress={() => {
+            this.setState({ selected: 'LearnTab' });
+          }}>
+          <View><Text>Tab 4</Text></View>
+        </TabBarIOS.Item>
+        <TabBarIOS.Item title="Practice"
+          icon={require('./img/book.png')}
+          selected={this.state.selected === "PracticeTab"}
+          onPress={() => {
+            this.setState({ selected: 'PracticeTab' });
+          }}>
+          <View><Text>Tab 5</Text></View>
+        </TabBarIOS.Item>
+      </TabBarIOS>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
