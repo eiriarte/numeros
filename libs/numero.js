@@ -9,16 +9,21 @@ export default class ClassName {
     this._grammar = 'neu';
   }
 
+  static translate(number, gender) {
+    number = _getDigits(number);
+    return cleanStyles(_getStyledNumber(number, gender)).trim();
+  }
+
   setNumber(number) {
-    this._number.digits = this._getDigits(number);
+    this._number.digits = _getDigits(number);
     this._spanishNumberToWords(this._number.digits, this._grammar);
-    this._number.digitChunks = this._formatNumber(this._number.digits);
+    this._number.digitChunks = _formatNumber(this._number.digits);
   }
 
   addDigit(digit) {
-    this._number.digits = this._getDigits(this._number.digits + digit);
+    this._number.digits = _getDigits(this._number.digits + digit);
     this._spanishNumberToWords(this._number.digits, this._grammar);
-    this._number.digitChunks = this._formatNumber(this._number.digits);
+    this._number.digitChunks = _formatNumber(this._number.digits);
   }
 
   clear() {
@@ -31,7 +36,7 @@ export default class ClassName {
   sum(num) {
     this._number.digits = this._sum(this._number.digits, num);
     this._spanishNumberToWords(this._number.digits, this._grammar);
-    this._number.digitChunks = this._formatNumber(this._number.digits);
+    this._number.digitChunks = _formatNumber(this._number.digits);
   }
 
   setGrammar(type) {
@@ -41,13 +46,6 @@ export default class ClassName {
 
   getNumber() {
     return this._number;
-  }
-
-  _getDigits(number) {
-    let digits = '' + number;
-    digits = digits.replace(/^0+/, '');
-    if (digits === '') digits = '0';
-    return digits;
   }
 
   _sum(number, addend) {
@@ -88,177 +86,190 @@ export default class ClassName {
   }
 
   _spanishNumberToWords(number, gender) {
-    var chunks = [];
-    var result;
-
-    if (/^0*$/.test(number)) {
-      result = 'unit/cero';
-    } else {
-      chunks = this._chunkNumber(number);
-      result = chunks.map((chunk, index) => {
-        var result, zillion;
-        if (index > 1) {
-          result = this._getChunk(chunk, 'masc', index);
-          if (index % 2 === 0) {
-            if (chunk === '000' && chunks[index + 1] === '000') {
-              result = ''; // "billones millones" => "billones"
-            } else {
-              zillion = millions[index + ''];
-              if (!/^0*1$/.test(chunk)) {
-                zillion = zillion.replace('llón', 'llones'); // "dos millón" => "dos millones"
-              }
-              result += ' ' + zillion;
-            }
-          } else if (result) {
-            if (/^0*1$/.test(chunk)) {
-              result = 'mil'; // "un mil" => "mil"
-            } else {
-              result += ' mil';
-            }
-          }
-          result = 'zillion/' + result + '|';
-        } else if (index === 1) {
-          result = this._getChunk(chunk, gender !== 'fem' ? 'masc' : 'fem', index);
-          if (result) {
-            if (/^0*1$/.test(chunk)) {
-              result = 'mil'; // "un mil" => "mil"
-            } else {
-              result += ' mil';
-            }
-            result = 'thousand/' + result + '|';
-          }
-        } else {
-          result = this._getChunk(chunk, gender, index);
-        }
-        return result;
-      });
-      result = result.reverse().join(' ').trim();
-    }
+    var result = _getStyledNumber(number, gender);
 
     this._number.letters = cleanStyles(result).trim();
     this._number.letterChunks = parseStyles(result);
   }
+}
 
-  _getChunk(number, gender, index) {
-    var result = '';
-    var unit = number.slice(-1);
-    var tenUnit = number.slice(-2);
-    var ten = number.slice(-2, -1);
-    var hundred = number.slice(-3, -2);
-    var unitClass = 'unit';
+function _getStyledNumber(number, gender) {
+  var chunks = [];
+  var result;
 
-    tenUnit = units[tenUnit];
-    if (number.length > 1 && tenUnit) {
-      unit = tenUnit;
-      ten = '';
-      unitClass = 'ten-unit';
-    } else {
-      unit = units[unit] || '';
-      ten = tens[ten] || '';
-      if (ten && unit) {
-        ten = ten + ' y ';
-      }
-    }
-    hundred = hundreds[hundred] || '';
-    if (hundred) {
-      if (hundred === 'ciento' && !ten && !unit) {
-        hundred = 'cien';
-      }
-      hundred += ' ';
-    }
-
-    if (index === 0) {
-      result = 'hundred/' + hundred + '|ten/' +
-      ten + '|' + unitClass + '/' + unit;
-    } else {
-      result = hundred + ten + unit;
-    }
-
-    return this._toGender(result.trim(), gender, index);
-  }
-
-  _toGender(number, gender, index) {
-    if (gender === 'neu') return number;
-
-    if (gender === 'fem') {
-      number = number.replace('tos', 't;f:as;');
-      number = number.replace('uno', ';f:una;');
-    } else if (gender === 'masc') {
+  if (/^0*$/.test(number)) {
+    result = 'unit/cero';
+  } else {
+    chunks = _chunkNumber(number);
+    result = chunks.map((chunk, index) => {
+      var result, zillion;
       if (index > 1) {
-        number = number.replace('veintiuno', 'veintiún');
-        number = number.replace('uno', 'un');
-      } else {
-        number = number.replace('tos', 't;m:os;');
-        number = number.replace('veintiuno', 'veinti;m:ún;');
-        number = number.replace('uno', ';m:un;');
-      }
-    }
-
-    return number;
-  }
-
-  _formatNumber(number, gender) {
-    const chunks = this._chunkNumber(number);
-    let join = ' ';
-
-    let result = chunks.map(function(chunk, index) {
-      let unit, tenUnit, ten, hundred, unitClass = 'unit';
-      if (index > 1) {
-        chunk = 'zillion/' + chunk + '|';
+        result = _getChunk(chunk, 'masc', index);
+        if (index % 2 === 0) {
+          if (chunk === '000' && chunks[index + 1] === '000') {
+            result = ''; // "billones millones" => "billones"
+          } else {
+            zillion = millions[index + ''];
+            if (!/^0*1$/.test(chunk)) {
+              zillion = zillion.replace('llón', 'llones'); // "dos millón" => "dos millones"
+            }
+            result += ' ' + zillion;
+          }
+        } else if (result) {
+          if (/^0*1$/.test(chunk)) {
+            result = 'mil'; // "un mil" => "mil"
+          } else {
+            result += ' mil';
+          }
+        }
+        result = 'zillion/' + result + '|';
       } else if (index === 1) {
-        if (chunk === '000') {
-          chunk = 'zillion/000|';
-        } else {
-          chunk = 'thousand/' + chunk + '|';
+        result = _getChunk(chunk, gender !== 'fem' ? 'masc' : 'fem', index);
+        if (result) {
+          if (/^0*1$/.test(chunk)) {
+            result = 'mil'; // "un mil" => "mil"
+          } else {
+            result += ' mil';
+          }
+          result = 'thousand/' + result + '|';
         }
       } else {
-        unit = chunk.slice(-1);
-        tenUnit = chunk.slice(-2);
-        ten = chunk.slice(-2, -1);
-        hundred = chunk.slice(-3, -2);
-        unitClass = 'unit';
-
-        if (chunk === '000') {
-          if (chunks[1] === '000') return 'zillion/000';
-          return 'thousand/000';
-        } else if (chunk.length > 1 && units[tenUnit]) {
-          unit = tenUnit;
-          ten = '';
-          unitClass = 'ten-unit';
-        } else if (tenUnit === '00') {
-          unit = '';
-          ten = '';
-          hundred += '00';
-        } else if (ten === '0') {
-          unit = '0' + unit;
-          ten = '';
-        }
-
-        chunk = 'hundred/' + hundred + '|ten/' + ten + '|' +
-        unitClass + '/' + unit;
+        result = _getChunk(chunk, gender, index);
       }
-      return chunk;
+      return result;
     });
-    if (number.length < 5) {
-      join = '';
-    }
-    result = result.reverse().join(join) || 'unit/0';
-    return parseStyles(result);
+    result = result.reverse().join(' ').trim();
   }
 
-  _chunkNumber(number) {
-    var chunks = [];
+  return result;
+}
 
-    for (var i = number.length; i > 0; i -= 3) {
-      if (i >= 3) {
-        chunks.push(number.slice(i - 3, i));
+function _getChunk(number, gender, index) {
+  var result = '';
+  var unit = number.slice(-1);
+  var tenUnit = number.slice(-2);
+  var ten = number.slice(-2, -1);
+  var hundred = number.slice(-3, -2);
+  var unitClass = 'unit';
+
+  tenUnit = units[tenUnit];
+  if (number.length > 1 && tenUnit) {
+    unit = tenUnit;
+    ten = '';
+    unitClass = 'ten-unit';
+  } else {
+    unit = units[unit] || '';
+    ten = tens[ten] || '';
+    if (ten && unit) {
+      ten = ten + ' y ';
+    }
+  }
+  hundred = hundreds[hundred] || '';
+  if (hundred) {
+    if (hundred === 'ciento' && !ten && !unit) {
+      hundred = 'cien';
+    }
+    hundred += ' ';
+  }
+
+  if (index === 0) {
+    result = 'hundred/' + hundred + '|ten/' +
+    ten + '|' + unitClass + '/' + unit;
+  } else {
+    result = hundred + ten + unit;
+  }
+
+  return _toGender(result.trim(), gender, index);
+}
+
+function _toGender(number, gender, index) {
+  if (gender === 'neu') return number;
+
+  if (gender === 'fem') {
+    number = number.replace('tos', 't;f:as;');
+    number = number.replace('uno', ';f:una;');
+  } else if (gender === 'masc') {
+    if (index > 1) {
+      number = number.replace('veintiuno', 'veintiún');
+      number = number.replace('uno', 'un');
+    } else {
+      number = number.replace('tos', 't;m:os;');
+      number = number.replace('veintiuno', 'veinti;m:ún;');
+      number = number.replace('uno', ';m:un;');
+    }
+  }
+
+  return number;
+}
+
+function _formatNumber(number, gender) {
+  const chunks = _chunkNumber(number);
+  let join = ' ';
+
+  let result = chunks.map(function(chunk, index) {
+    let unit, tenUnit, ten, hundred, unitClass = 'unit';
+    if (index > 1) {
+      chunk = 'zillion/' + chunk + '|';
+    } else if (index === 1) {
+      if (chunk === '000') {
+        chunk = 'zillion/000|';
       } else {
-        chunks.push(number.slice(0, i));
+        chunk = 'thousand/' + chunk + '|';
       }
-    }
+    } else {
+      unit = chunk.slice(-1);
+      tenUnit = chunk.slice(-2);
+      ten = chunk.slice(-2, -1);
+      hundred = chunk.slice(-3, -2);
+      unitClass = 'unit';
 
-    return chunks;
+      if (chunk === '000') {
+        if (chunks[1] === '000') return 'zillion/000';
+        return 'thousand/000';
+      } else if (chunk.length > 1 && units[tenUnit]) {
+        unit = tenUnit;
+        ten = '';
+        unitClass = 'ten-unit';
+      } else if (tenUnit === '00') {
+        unit = '';
+        ten = '';
+        hundred += '00';
+      } else if (ten === '0') {
+        unit = '0' + unit;
+        ten = '';
+      }
+
+      chunk = 'hundred/' + hundred + '|ten/' + ten + '|' +
+      unitClass + '/' + unit;
+    }
+    return chunk;
+  });
+  if (number.length < 5) {
+    join = '';
   }
+  result = result.reverse().join(join) || 'unit/0';
+  return parseStyles(result);
+}
+
+function _chunkNumber(number) {
+  var chunks = [];
+
+  for (var i = number.length; i > 0; i -= 3) {
+    if (i >= 3) {
+      chunks.push(number.slice(i - 3, i));
+    } else {
+      chunks.push(number.slice(0, i));
+    }
+  }
+
+  return chunks;
+}
+
+function _getDigits(number) {
+  let digits = '' + number;
+  digits = digits.replace(/^0+/, '');
+  if (digits === '') digits = '0';
+  return digits;
 }
 
 function cleanStyles(number) {

@@ -4,7 +4,6 @@ import Numero from './numero';
 export default class Hora {
   constructor(time) {
     this._time = {};
-    this._num = new Numero();
     this.setTime(time);
   }
 
@@ -26,10 +25,8 @@ export default class Hora {
       ini = 'Es la';
     }
 
-    this._num.setNumber(h);
-    h = this._num.getNumber().letters;
-    this._num.setNumber(mm);
-    mm = this._num.getNumber().letters;
+    h = Numero.translate(h, 'neu');
+    mm = Numero.translate(mm, 'neu');
 
     this._time.digits = hh + ':' + mmPadded + ' h';
     this._time.letters = fracciones(`${ini} ${h} ${conn} ${mm} ${tramo}`);

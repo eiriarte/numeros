@@ -12,8 +12,7 @@ export default class Quiz {
   static _getQuestion(number, numChoices) {
     const item = {};
     item.question = '' + number;
-    this._num.setNumber(number);
-    item.answer = this._num.getNumber().letters;
+    item.answer = Numero.translate(number, 'neu');
     item.choices = this._getWrongChoices(number, item.answer);
     item.choices = _.shuffle(item.choices).slice(0, numChoices - 1);
     item.choices.push(false);
@@ -38,28 +37,22 @@ export default class Quiz {
     // +10 -10
     if (number % 10 !== 0) {
       if (number > 10) {
-        this._num.setNumber(number + 10);
-        errors.push(this._num.getNumber().letters);
+        errors.push(Numero.translate(number + 10, 'neu'));
       }
       if (number > 25) {
-        this._num.setNumber(number - 10);
-        errors.push(this._num.getNumber().letters);
+        errors.push(Numero.translate(number - 10, 'neu'));
       }
     }
 
     // -1, +1
     if (number > 1) {
-      this._num.setNumber(number - 1);
-      errors.push(this._num.getNumber().letters);
+      errors.push(Numero.translate(number - 1, 'neu'));
     }
-    this._num.setNumber(number + 1);
-    errors.push(this._num.getNumber().letters);
+    errors.push(Numero.translate(number + 1, 'neu'));
 
     return errors;
   }
 }
-
-Quiz._num = new Numero();
 
 var dictErrores = [
   ["uno", ["umo", "unno", "une", "ono"]],

@@ -84,12 +84,6 @@ describe('Numero', function() {
     ]);
   });
 
-  it('convierte a cadena y elimina ceros a la izq.', function() {
-    expect(num._getDigits(45)).toBe('45');
-    expect(num._getDigits('040')).toBe('40');
-    expect(num._getDigits('00')).toBe('0');
-  });
-
   it('suma numeros pequeños y grandes', function() {
     let vigintillonesOcho = '999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999998';
     let vigintillonesNueve = '999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999';
@@ -100,9 +94,8 @@ describe('Numero', function() {
 
   it('hace caso a la RAE', function() {
     rae.forEach((numeral) => {
-      num.setNumber(numeral.number);
-      expect(number.letters).toBe(numeral.words);
-    })
+      expect(Numero.translate(numeral.number, 'neu')).toBe(numeral.words);
+    });
   })
 });
 
