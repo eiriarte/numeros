@@ -6,12 +6,13 @@ import Numero from '../libs/numero';
 
 const grammarOptions = ['Masculine', 'Femenine', 'Noun', 'Cancel'];
 const grammarValues = ['masc', 'fem', 'neu'];
+const grammarLabels = ['Masc', 'Fem', 'Noun'];
 
 class TranslatorScreen extends React.Component {
   constructor(props) {
     super(props);
     this._numero = new Numero();
-    this.state = { number: this._numero.getNumber() };
+    this.state = { number: this._numero.getNumber(), grammar: 'Noun' };
     this._onKeyPressed = this._onKeyPressed.bind(this);
   }
 
@@ -29,14 +30,19 @@ class TranslatorScreen extends React.Component {
         case 'C':
           this._numero.clear();
           break;
-        case 'FEM':
+        case 'GRA':
           ActionSheetIOS.showActionSheetWithOptions({
             options: grammarOptions,
             cancelButtonIndex: 3
           }, (buttonIndex) => {
             const grammar = grammarValues[buttonIndex];
-            if (grammar) this._numero.setGrammar(grammar);
-            this.setState({ number: this._numero.getNumber() });
+            if (grammar) {
+              this._numero.setGrammar(grammar);
+              this.setState({
+                number: this._numero.getNumber(),
+                grammar: grammarLabels[buttonIndex]
+              });
+            }
           });
           return;
       }
@@ -48,7 +54,7 @@ class TranslatorScreen extends React.Component {
     return (
       <View style={styles.container}>
         <TranslatorOutput number={this.state.number} />
-        <TranslatorKeyboard onKeyPressed={this._onKeyPressed} />
+        <TranslatorKeyboard grammar={this.state.grammar} onKeyPressed={this._onKeyPressed} />
       </View>
     );
   }

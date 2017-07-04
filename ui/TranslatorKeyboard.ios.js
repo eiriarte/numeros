@@ -6,11 +6,12 @@ const column1 = ['C', '0'];
 const column2 = ['7', '4', '1'];
 const column3 = ['8', '5', '2'];
 const column4 = ['9', '6', '3'];
-const column5 = ['FEM', '+1', '-1'];
+const column5 = ['GRA', '+1', '-1'];
 
 export default class TranslatorKeyboard extends React.Component {
   static propTypes = {
-    onKeyPressed: PropTypes.func.isRequired
+    onKeyPressed: PropTypes.func.isRequired,
+    grammar: PropTypes.string.isRequired
   }
 
   constructor(props) {
@@ -19,11 +20,15 @@ export default class TranslatorKeyboard extends React.Component {
   }
 
   _getColumn(col) {
-    return col.map((key, i) => {
+    return col.map((keyLabel, i) => {
+      let keyPressed = keyLabel;
+      if (keyLabel === 'GRA') {
+        keyLabel = this.props.grammar;
+      }
       return (
-        <TouchableOpacity style={[ styles.key, (key === '0') && styles.tallKey]}
-          key={i} onPress={() => this.props.onKeyPressed(key)}>
-          <Text style={styles.keyText}>{key}</Text>
+        <TouchableOpacity style={[ styles.key, (keyLabel === '0') && styles.tallKey]}
+          key={i} onPress={() => this.props.onKeyPressed(keyPressed)}>
+          <Text style={styles.keyText}>{keyLabel}</Text>
         </TouchableOpacity>
       );
     });
