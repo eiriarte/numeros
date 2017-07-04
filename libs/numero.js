@@ -1,4 +1,4 @@
-export default class ClassName {
+export default class Numero {
   constructor() {
     this._number = {
       digits: '0',

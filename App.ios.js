@@ -1,7 +1,7 @@
 import React from 'react';
 import { TabBarIOS, Text, View } from 'react-native';
 
-// import NavigatorTranslator from './src/components/Translator';
+import NavigatorTranslator from './ui/Translator';
 // import NavigatorTime from './src/components/Time';
 // import NavigatorLearn from './src/components/Learn';
 
@@ -12,13 +12,13 @@ export default class TabbedUI extends React.Component {
   render() {
     return (
       <TabBarIOS>
-        <TabBarIOS.Item title="Translator"
+        <TabBarIOS.Item title="Numbers"
           icon={require('./img/search.png')}
           selected={this.state.selected === "TranslatorTab"}
           onPress={() => {
             this.setState({ selected: 'TranslatorTab' });
           }}>
-          <View><Text>Tab 1</Text></View>
+          <NavigatorTranslator />
         </TabBarIOS.Item>
         <TabBarIOS.Item title="Date"
           icon={require('./img/calendar.png')}
