@@ -4,7 +4,7 @@ import { TabBarIOS, Text, View } from 'react-native';
 import NavigatorTranslator from './ui/Translator';
 import NavigatorDate from './ui/Date';
 import NavigatorTime from './ui/Time';
-// import NavigatorLearn from './src/components/Learn';
+import NavigatorLearn from './ui/Learn';
 
 export default class TabbedUI extends React.Component {
   state = {
@@ -43,7 +43,7 @@ export default class TabbedUI extends React.Component {
           onPress={() => {
             this.setState({ selected: 'LearnTab' });
           }}>
-          <View><Text>Tab 4</Text></View>
+          <NavigatorLearn />
         </TabBarIOS.Item>
         <TabBarIOS.Item title="Practice"
           icon={require('./img/book.png')}
