@@ -15,11 +15,15 @@ export default class FinishScreen extends React.Component {
   render() {
     const right = this.props.result.right;
     const wrong = this.props.result.wrong;
+    const total = right + wrong;
     return (
       <View style={styles.container}>
         <View style={styles.progress}>
           <QuizScore label='Right' score={right} />
-          <ProgressViewIOS style={styles.progressView} progress={1}/>
+          <View style={styles.progressView}>
+            <Text>{total} of {total}</Text>
+            <ProgressViewIOS style={{ width: '100%' }} progress={1}/>
+          </View>
           <QuizScore label='Wrong' score={wrong} />
         </View>
         <View style={styles.result}>
@@ -42,6 +46,7 @@ const styles = StyleSheet.create({
   },
   progressView: {
     flex: 1,
+    alignItems: 'center',
     margin: 20,
   },
   result: {

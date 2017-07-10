@@ -65,7 +65,10 @@ export default class QuizScreen extends React.Component {
       <View style={styles.container}>
         <View style={styles.progress}>
           <QuizScore label='Right' score={this.state.right} />
-          <ProgressViewIOS style={styles.progressView} progress={current/total}/>
+          <View style={styles.progressView}>
+            <Text>{current} of {total}</Text>
+            <ProgressViewIOS style={{ width: '100%' }} progress={current/total}/>
+          </View>
           <QuizScore label='Wrong' score={this.state.wrong} />
         </View>
         <View style={styles.quiz}>
@@ -94,6 +97,7 @@ const styles = StyleSheet.create({
   },
   progressView: {
     flex: 1,
+    alignItems: 'center',
     margin: 20,
   },
   quiz: {
