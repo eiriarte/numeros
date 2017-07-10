@@ -5,6 +5,7 @@ import NavigatorTranslator from './ui/Translator';
 import NavigatorDate from './ui/Date';
 import NavigatorTime from './ui/Time';
 import NavigatorLearn from './ui/Learn';
+import NavigatorPractice from './ui/Practice';
 
 export default class TabbedUI extends React.Component {
   state = {
@@ -51,7 +52,7 @@ export default class TabbedUI extends React.Component {
           onPress={() => {
             this.setState({ selected: 'PracticeTab' });
           }}>
-          <View><Text>Tab 5</Text></View>
+          <NavigatorPractice />
         </TabBarIOS.Item>
       </TabBarIOS>
     );
