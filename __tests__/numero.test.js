@@ -55,7 +55,7 @@ describe('Numero', function() {
     expect(number.letters).toBe('catorce');
     num.setNumber('1000000');
     expect(number.letterChunks).toEqual([
-      { style: 'zillion', content: ['un millón'] }
+      { style: 'zillion', content: ['un millón '] }
     ]);
     expect(number.digitChunks).toEqual([
       { style: 'zillion', content: ['1'] },
@@ -65,13 +65,13 @@ describe('Numero', function() {
     num.setNumber('1201201');
     num.setGrammar('neu');
     expect(number.letterChunks).toEqual([
-      { style: 'zillion', content: ['un millón'] },
+      { style: 'zillion', content: ['un millón '] },
       { style: 'thousand', content: [
         'doscient',
         { style: 'm', content: 'os' },
         ' ',
         { style: 'm', content: 'un' },
-        ' mil'
+        ' mil '
       ]},
       { style: 'hundred', content: ['doscientos '] },
       { style: 'unit', content: ['uno'] }

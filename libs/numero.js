@@ -109,17 +109,17 @@ function _getStyledNumber(number, gender) {
           if (chunk === '000' && chunks[index + 1] === '000') {
             result = ''; // "billones millones" => "billones"
           } else {
-            zillion = millions[index + ''];
+            zillion = millions[index + ''] + ' ';
             if (!/^0*1$/.test(chunk)) {
-              zillion = zillion.replace('llón', 'llones'); // "dos millón" => "dos millones"
+              zillion = zillion.replace('llón ', 'llones '); // "dos millón" => "dos millones"
             }
             result += ' ' + zillion;
           }
         } else if (result) {
           if (/^0*1$/.test(chunk)) {
-            result = 'mil'; // "un mil" => "mil"
+            result = 'mil '; // "un mil" => "mil"
           } else {
-            result += ' mil';
+            result += ' mil ';
           }
         }
         result = 'zillion/' + result + '|';
@@ -127,9 +127,9 @@ function _getStyledNumber(number, gender) {
         result = _getChunk(chunk, gender !== 'fem' ? 'masc' : 'fem', index);
         if (result) {
           if (/^0*1$/.test(chunk)) {
-            result = 'mil'; // "un mil" => "mil"
+            result = 'mil '; // "un mil" => "mil"
           } else {
-            result += ' mil';
+            result += ' mil ';
           }
           result = 'thousand/' + result + '|';
         }
