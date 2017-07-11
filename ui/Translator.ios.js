@@ -53,7 +53,7 @@ class TranslatorScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <TranslatorOutput number={this.state.number} />
+        <TranslatorOutput number={this.state.number} noun={this.state.grammar === 'Noun'} />
         <TranslatorKeyboard grammar={this.state.grammar} onKeyPressed={this._onKeyPressed} />
       </View>
     );
