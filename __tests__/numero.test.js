@@ -84,6 +84,19 @@ describe('Numero', function() {
     ]);
   });
 
+  it('borra números dígito a dígito', function() {
+    num.setNumber(2021);
+    expect(number.letters).toBe('dos mil veintiuno');
+    num.del();
+    expect(number.letters).toBe('doscientos dos');
+    num.del();
+    expect(number.letters).toBe('veinte');
+    num.del();
+    expect(number.letters).toBe('dos');
+    num.del();
+    expect(number.letters).toBe('cero');
+  });
+
   it('suma numeros pequeños y grandes', function() {
     let vigintillonesOcho = '999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999998';
     let vigintillonesNueve = '999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999';

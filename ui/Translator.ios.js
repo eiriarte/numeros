@@ -27,8 +27,8 @@ class TranslatorScreen extends React.Component {
         case '-1':
           this._numero.sum(-1);
           break;
-        case 'C':
-          this._numero.clear();
+        case 'DEL':
+          this._numero.del();
           break;
         case 'GRA':
           ActionSheetIOS.showActionSheetWithOptions({

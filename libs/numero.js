@@ -26,6 +26,13 @@ export default class Numero {
     this._number.digitChunks = _formatNumber(this._number.digits);
   }
 
+  del() {
+    if (this._number.digits.length === 1) return this.clear();
+    this._number.digits = this._number.digits.slice(0, -1);
+    this._spanishNumberToWords(this._number.digits, this._grammar);
+    this._number.digitChunks = _formatNumber(this._number.digits);
+  }
+
   clear() {
     this._number.digits = '0';
     this._number.letters = 'cero';

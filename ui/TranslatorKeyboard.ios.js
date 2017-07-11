@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 
-const column1 = ['C', '0'];
+const column1 = ['GRA', '0'];
 const column2 = ['7', '4', '1'];
 const column3 = ['8', '5', '2'];
 const column4 = ['9', '6', '3'];
-const column5 = ['GRA', '+1', '-1'];
+const column5 = ['+1', '-1', 'DEL'];
 
 export default class TranslatorKeyboard extends React.Component {
   static propTypes = {
