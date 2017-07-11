@@ -12,8 +12,8 @@ export default class TranslatorOutput extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <ColoredText chunks={this.props.number.digitChunks} noun={this.props.noun}/>
-        <ColoredText chunks={this.props.number.letterChunks} noun={this.props.noun}/>
+        <ColoredText style={styles.digits} chunks={this.props.number.digitChunks} noun={this.props.noun}/>
+        <ColoredText style={styles.numeral} chunks={this.props.number.letterChunks} noun={this.props.noun}/>
       </View>
     );
   }
@@ -26,4 +26,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  digits: {
+    fontSize: 18,
+    margin: 8
+  },
+  numeral: {
+    fontSize: 32,
+    margin: 8
+  }
 });

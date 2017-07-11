@@ -25,7 +25,7 @@ export default class ColoredText extends React.Component {
 
   render() {
     return (
-      <Text>{this._renderChunks(this.props.chunks)}</Text>
+      <Text style={this.props.style}>{this._renderChunks(this.props.chunks)}</Text>
     );
   }
 }
