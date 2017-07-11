@@ -33,7 +33,9 @@ class TranslatorScreen extends React.Component {
         case 'GRA':
           ActionSheetIOS.showActionSheetWithOptions({
             options: grammarOptions,
-            cancelButtonIndex: 3
+            cancelButtonIndex: 3,
+            title: 'Type of numeral',
+            message: 'Choose noun, masculine adjective or feminine adjective (uno, un gato, una gata).'
           }, (buttonIndex) => {
             const grammar = grammarValues[buttonIndex];
             if (grammar) {
