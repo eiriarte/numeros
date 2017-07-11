@@ -15,7 +15,7 @@ export default class TabbedUI extends React.Component {
     return (
       <TabBarIOS>
         <TabBarIOS.Item title="Numbers"
-          icon={require('./img/search.png')}
+          icon={require('./img/keypad.png')}
           selected={this.state.selected === "TranslatorTab"}
           onPress={() => {
             this.setState({ selected: 'TranslatorTab' });
@@ -31,7 +31,7 @@ export default class TabbedUI extends React.Component {
           <NavigatorDate />
         </TabBarIOS.Item>
         <TabBarIOS.Item title="Time"
-          icon={require('./img/calendar.png')}
+          icon={require('./img/clock.png')}
           selected={this.state.selected === "TimeTab"}
           onPress={() => {
             this.setState({ selected: 'TimeTab' });
@@ -47,7 +47,7 @@ export default class TabbedUI extends React.Component {
           <NavigatorLearn />
         </TabBarIOS.Item>
         <TabBarIOS.Item title="Practice"
-          icon={require('./img/book.png')}
+          icon={require('./img/check.png')}
           selected={this.state.selected === "PracticeTab"}
           onPress={() => {
             this.setState({ selected: 'PracticeTab' });
