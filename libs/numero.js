@@ -204,17 +204,16 @@ function _toGender(number, gender, index) {
 
 function _formatNumber(number, gender) {
   const chunks = _chunkNumber(number);
-  let join = ' ';
 
   let result = chunks.map(function(chunk, index) {
     let unit, tenUnit, ten, hundred, unitClass = 'unit';
     if (index > 1) {
-      chunk = 'zillion/' + chunk + '|';
+      chunk = 'zillion/' + chunk + ' |';
     } else if (index === 1) {
       if (chunk === '000') {
-        chunk = 'zillion/000|';
+        chunk = 'zillion/000 |';
       } else {
-        chunk = 'thousand/' + chunk + '|';
+        chunk = 'thousand/' + chunk + (chunk.length > 1 ? ' ' : '')+ '|';
       }
     } else {
       unit = chunk.slice(-1);
@@ -244,10 +243,8 @@ function _formatNumber(number, gender) {
     }
     return chunk;
   });
-  if (number.length < 5) {
-    join = '';
-  }
-  result = result.reverse().join(join) || 'unit/0';
+
+  result = result.reverse().join('') || 'unit/0';
   return parseStyles(result);
 }
 
@@ -282,8 +279,9 @@ function cleanStyles(number) {
 
 function parseStyles(number) {
   const result = [];
+  const chunks = number.split('|');
 
-  number.split('|').forEach((chunk) => {
+  chunks.forEach((chunk) => {
     chunk = chunk.split('/');
     if (chunk[1].trim() === '') return;
     result.push({ style: chunk[0].trim(), content: mapGenders(chunk[1]) });

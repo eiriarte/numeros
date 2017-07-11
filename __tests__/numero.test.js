@@ -58,8 +58,8 @@ describe('Numero', function() {
       { style: 'zillion', content: ['un millón '] }
     ]);
     expect(number.digitChunks).toEqual([
-      { style: 'zillion', content: ['1'] },
-      { style: 'zillion', content: ['000'] },
+      { style: 'zillion', content: ['1 '] },
+      { style: 'zillion', content: ['000 '] },
       { style: 'zillion', content: ['000'] }
     ]);
     num.setNumber('1201201');
@@ -77,8 +77,8 @@ describe('Numero', function() {
       { style: 'unit', content: ['uno'] }
     ]);
     expect(number.digitChunks).toEqual([
-      { style: 'zillion', content: ['1'] },
-      { style: 'thousand', content: ['201'] },
+      { style: 'zillion', content: ['1 '] },
+      { style: 'thousand', content: ['201 '] },
       { style: 'hundred', content: ['2'] },
       { style: 'unit', content: ['01'] }
     ]);
