@@ -14,16 +14,13 @@ export default class TabbedUI extends React.Component {
   };
 
   componentWillMount() {
-    const images = [
+    Asset.loadAsync([
       require('./img/backspace.png'),
       require('./img/pr_state_check.png'),
       require('./img/pr_state_right.png'),
       require('./img/pr_state_uncheck.png'),
       require('./img/pr_state_wrong.png')
-    ];
-    images.forEach((image) => {
-      Asset.fromModule(image).downloadAsync();
-    });
+    ]);
   }
 
   render() {
