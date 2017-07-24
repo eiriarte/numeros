@@ -21,6 +21,9 @@ export default class TranslatorKeyboard extends React.Component {
 
   _getColumn(col) {
     return col.map((keyLabel, i) => {
+      const keyStyles = [ styles.key ];
+      if (keyLabel === '0') keyStyles.push(styles.tallKey);
+      if (/^\d$/.test(keyLabel)) keyStyles.push(styles.digitKey);
       let key = <Text style={styles.keyText}>{keyLabel}</Text>;
       if (keyLabel === 'GRA') {
         key = <Text style={styles.keyText}>{this.props.grammar}</Text>;
@@ -28,8 +31,8 @@ export default class TranslatorKeyboard extends React.Component {
         key= <Image source={require('../img/backspace.png')} />;
       }
       return (
-        <TouchableOpacity style={[ styles.key, (keyLabel === '0') && styles.tallKey]}
-          key={i} onPress={() => this.props.onKeyPressed(keyLabel)}>
+        <TouchableOpacity style={keyStyles} key={i}
+          onPress={() => this.props.onKeyPressed(keyLabel)}>
           {key}
         </TouchableOpacity>
       );
@@ -71,17 +74,22 @@ const styles = StyleSheet.create({
     flex: 1
   },
   key: {
-    backgroundColor: 'lightgray',
+    borderRightWidth: StyleSheet.hairlineWidth,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    backgroundColor: 'gainsboro',
+    borderColor: 'gray',
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1
+  },
+  digitKey: {
+    backgroundColor: '#ececec'
   },
   tallKey: {
     flex: 2
   },
   keyText: {
     textAlign: 'center',
-    fontWeight: 'bold',
-    fontSize: 20
+    fontSize: 22
   }
 });
