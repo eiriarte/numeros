@@ -4,7 +4,7 @@ import TranslatorKeyboard from './TranslatorKeyboard';
 import TranslatorOutput from './TranslatorOutput';
 import Numero from '../libs/numero';
 
-const grammarOptions = ['Masculine', 'Femenine', 'Noun', 'Cancel'];
+const grammarOptions = ['Masculine adjective', 'Femenine adjective', 'Noun', 'Cancel'];
 const grammarValues = ['masc', 'fem', 'neu'];
 const grammarLabels = ['Masc', 'Fem', 'Noun'];
 
@@ -35,7 +35,6 @@ class TranslatorScreen extends React.Component {
             options: grammarOptions,
             cancelButtonIndex: 3,
             title: 'Type of numeral',
-            message: 'Choose noun, masculine adjective or feminine adjective (uno, un gato, una gata).'
           }, (buttonIndex) => {
             const grammar = grammarValues[buttonIndex];
             if (grammar) {
