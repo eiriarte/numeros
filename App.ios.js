@@ -1,5 +1,6 @@
 import React from 'react';
-import { TabBarIOS, Text, View } from 'react-native';
+import { TabBarIOS, Text, View, Image } from 'react-native';
+import { Asset } from 'expo';
 
 import NavigatorTranslator from './ui/Translator';
 import NavigatorDate from './ui/Date';
@@ -11,6 +12,20 @@ export default class TabbedUI extends React.Component {
   state = {
     selected: 'TranslatorTab'
   };
+
+  componentWillMount() {
+    const images = [
+      require('./img/backspace.png'),
+      require('./img/pr_state_check.png'),
+      require('./img/pr_state_right.png'),
+      require('./img/pr_state_uncheck.png'),
+      require('./img/pr_state_wrong.png')
+    ];
+    images.forEach((image) => {
+      Asset.fromModule(image).downloadAsync();
+    });
+  }
+
   render() {
     return (
       <TabBarIOS>
