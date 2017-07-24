@@ -2,6 +2,7 @@
   "expo": {
     "sdkVersion": "18.0.0",
     "slug": "spanish-numbers",
-    "name": "Spanish Numbers"
+    "name": "Spanish Numbers",
+    "orientation": "portrait"
   }
 }
