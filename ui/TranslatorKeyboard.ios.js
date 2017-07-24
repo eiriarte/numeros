@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, Image, TouchableOpacity, Text } from 'react-native';
 
 const column1 = ['GRA', '0'];
 const column2 = ['7', '4', '1'];
@@ -21,14 +21,16 @@ export default class TranslatorKeyboard extends React.Component {
 
   _getColumn(col) {
     return col.map((keyLabel, i) => {
-      let keyPressed = keyLabel;
+      let key = <Text style={styles.keyText}>{keyLabel}</Text>;
       if (keyLabel === 'GRA') {
-        keyLabel = this.props.grammar;
+        key = <Text style={styles.keyText}>{this.props.grammar}</Text>;
+      } else if (keyLabel === 'DEL') {
+        key= <Image source={require('../img/backspace.png')} />;
       }
       return (
         <TouchableOpacity style={[ styles.key, (keyLabel === '0') && styles.tallKey]}
-          key={i} onPress={() => this.props.onKeyPressed(keyPressed)}>
-          <Text style={styles.keyText}>{keyLabel}</Text>
+          key={i} onPress={() => this.props.onKeyPressed(keyLabel)}>
+          {key}
         </TouchableOpacity>
       );
     });
@@ -71,6 +73,7 @@ const styles = StyleSheet.create({
   key: {
     backgroundColor: 'lightgray',
     justifyContent: 'center',
+    alignItems: 'center',
     flex: 1
   },
   tallKey: {
