@@ -20,8 +20,8 @@ class DateScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.output}>
-          <Text>{this._fecha.getDate().shortForm}</Text>
-          <Text>{this._fecha.getDate().longForm}</Text>
+          <Text style={styles.digits}>{this._fecha.getDate().shortForm}</Text>
+          <Text style={styles.numeral}>{this._fecha.getDate().longForm}</Text>
         </View>
         <View style={styles.picker}>
           <DatePickerIOS
@@ -51,6 +51,17 @@ const styles = StyleSheet.create({
   picker: {
     width: '100%',
     justifyContent: 'flex-end'
+  },
+  digits: {
+    fontSize: 18,
+    margin: 8,
+    color: '#3771c8'
+  },
+  numeral: {
+    textAlign: 'center',
+    fontSize: 32,
+    margin: 8,
+    color: '#3771c8'
   }
 });
 
