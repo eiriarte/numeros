@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, ScrollView, Text } from 'react-native';
 import ColoredText from './ColoredText';
 
 export default class TranslatorOutput extends React.Component {
@@ -11,20 +11,21 @@ export default class TranslatorOutput extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.scroll} contentContainerStyle={styles.container}>
         <ColoredText style={styles.digits} chunks={this.props.number.digitChunks} noun={this.props.noun}/>
         <ColoredText style={styles.numeral} chunks={this.props.number.letterChunks} noun={this.props.noun}/>
-      </View>
+      </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  scroll: {
     width: '100%',
     flex: 1,
+  },
+  container: {
     alignItems: 'center',
-    justifyContent: 'center',
   },
   digits: {
     fontSize: 18,
