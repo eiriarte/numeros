@@ -1,5 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, ActionSheetIOS, NavigatorIOS } from 'react-native';
+import { PropTypes } from 'prop-types';
+import { Speech } from 'expo';
 import TranslatorKeyboard from './TranslatorKeyboard';
 import TranslatorOutput from './TranslatorOutput';
 import Numero from '../libs/numero';
@@ -9,6 +11,10 @@ const grammarValues = ['masc', 'fem', 'neu'];
 const grammarLabels = ['Masc', 'Fem', 'Noun'];
 
 class TranslatorScreen extends React.Component {
+  static propTypes = {
+    onNumberChanged: PropTypes.func.isRequired
+  }
+
   constructor(props) {
     super(props);
     this._numero = new Numero();
@@ -39,6 +45,7 @@ class TranslatorScreen extends React.Component {
             const grammar = grammarValues[buttonIndex];
             if (grammar) {
               this._numero.setGrammar(grammar);
+              this.props.onNumberChanged(this._numero.getNumber().letters);
               this.setState({
                 number: this._numero.getNumber(),
                 grammar: grammarLabels[buttonIndex]
@@ -48,6 +55,7 @@ class TranslatorScreen extends React.Component {
           return;
       }
     }
+    this.props.onNumberChanged(this._numero.getNumber().letters);
     this.setState({ number: this._numero.getNumber() });
   }
 
@@ -73,12 +81,32 @@ const styles = StyleSheet.create({
 });
 
 export default class NavigatorTranslator extends React.Component {
+  constructor(props) {
+    super(props);
+    this._number = 'cero';
+    this._onNumberChanged = this._onNumberChanged.bind(this);
+  }
+
+  _onNumberChanged(num) {
+    this._number = num;
+  }
+
   render() {
     return (
       <NavigatorIOS
+        ref='nav'
         initialRoute={{
           component: TranslatorScreen,
-          title: 'Numbers'
+          title: 'Numbers',
+          passProps: { onNumberChanged: this._onNumberChanged },
+          rightButtonIcon: require('../img/sound.png'),
+          onRightButtonPress: async () => {
+            if (await Speech.isSpeakingAsync()) {
+              Speech.stop();
+            } else {
+              Speech.speak(this._number, { language: 'es' });
+            }
+          }
         }}
         style={{flex: 1}}
       />
