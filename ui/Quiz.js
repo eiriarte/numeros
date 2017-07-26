@@ -61,6 +61,8 @@ export default class QuizScreen extends React.Component {
     const total = this.props.quiz.length;
     const item = this.props.quiz[current];
     const last = (current === total - 1);
+    const isBtnDisabled = _.isUndefined(this.state.answer);
+    const isChecked = this.state.checked;
     return (
       <View style={styles.container}>
         <View style={styles.progress}>
@@ -73,11 +75,13 @@ export default class QuizScreen extends React.Component {
         </View>
         <View style={styles.quiz}>
           <QuizQuestion answer={this.state.answer}
-            checked={this.state.checked} item={item} onChange={this._onChange}/>
-          <TouchableOpacity disabled={_.isUndefined(this.state.answer)}
+            checked={isChecked} item={item} onChange={this._onChange}/>
+          <TouchableOpacity disabled={isBtnDisabled}
             onPress={this._onCheckNext}>
-            <Text style={styles.button}>
-              {this.state.checked ? (last?'Finish':'Next') : 'Check'}
+            <Text style={[styles.button,
+                isBtnDisabled && styles.disabled,
+                isChecked && styles.checked]}>
+              {isChecked ? (last?'Finish':'Next') : 'Check'}
             </Text>
           </TouchableOpacity>
         </View>
@@ -106,8 +110,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   button: {
-    backgroundColor: 'lightgray',
+    minWidth: 80,
+    textAlign: 'center',
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 3,
     fontSize: 18,
     padding: 8
+  },
+  disabled: {
+    opacity: 0.5
+  },
+  checked: {
+    backgroundColor: '#228B22',
+    borderColor: '#228B22',
+    borderRadius: 3,
+    overflow: 'hidden',
+    color: 'white'
   }
 });
