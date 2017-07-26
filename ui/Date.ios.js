@@ -1,18 +1,26 @@
 import React from 'react';
 import { StyleSheet, Text, View, DatePickerIOS, NavigatorIOS } from 'react-native';
+import { PropTypes } from 'prop-types';
+import { Speech } from 'expo';
 import Fecha from '../libs/fecha';
 
 class DateScreen extends React.Component {
+  static propTypes = {
+    onDateChanged: PropTypes.func.isRequired
+  }
+
   constructor(props) {
     super(props);
     const now = new Date();
     this._fecha = new Fecha(now);
     this.state = { date: now };
     this._onDateChange = this._onDateChange.bind(this);
+    this.props.onDateChanged(this._fecha.getDate().longForm);
   }
 
   _onDateChange(date) {
     this._fecha.setDate(date);
+    this.props.onDateChanged(this._fecha.getDate().longForm);
     this.setState({ date: date });
   }
 
@@ -66,12 +74,30 @@ const styles = StyleSheet.create({
 });
 
 export default class NavigatorDate extends React.Component {
+  constructor(props) {
+    super(props);
+    this._onDateChanged = this._onDateChanged.bind(this);
+  }
+
+  _onDateChanged(date) {
+    this._date = date;
+  }
+
   render() {
     return (
       <NavigatorIOS
         initialRoute={{
           component: DateScreen,
-          title: 'Dates'
+          title: 'Dates',
+          passProps: { onDateChanged: this._onDateChanged },
+          rightButtonIcon: require('../img/sound.png'),
+          onRightButtonPress: async () => {
+            if (await Speech.isSpeakingAsync()) {
+              Speech.stop();
+            } else {
+              Speech.speak(this._date, { language: 'es' });
+            }
+          }
         }}
         style={{flex: 1}}
       />

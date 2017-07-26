@@ -94,7 +94,6 @@ export default class NavigatorTranslator extends React.Component {
   render() {
     return (
       <NavigatorIOS
-        ref='nav'
         initialRoute={{
           component: TranslatorScreen,
           title: 'Numbers',
