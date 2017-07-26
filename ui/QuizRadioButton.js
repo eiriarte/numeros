@@ -47,7 +47,8 @@ const styles = StyleSheet.create({
   },
   label: {
     margin: 4,
-    fontSize: 18
+    paddingLeft: 4,
+    fontSize: 20
   },
   state: {
     margin: 4
