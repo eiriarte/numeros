@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, DatePickerIOS, NavigatorIOS } from 'react-native';
 import { PropTypes } from 'prop-types';
-import { Speech } from 'expo';
+import { Speech, Constants } from 'expo';
 import Fecha from '../libs/fecha';
 
 class DateScreen extends React.Component {
@@ -46,7 +46,7 @@ class DateScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 64,
+    paddingTop: Constants.statusBarHeight + 44,
     paddingBottom: 50,
     backgroundColor: '#fff',
   },

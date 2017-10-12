@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ProgressViewIOS }
   from 'react-native';
-import PropTypes from 'prop-types';
+import { PropTypes } from 'prop-types';
+import { Speech, Constants } from 'expo';
 import _ from 'lodash';
 import QuizScore from './QuizScore';
 import QuizQuestion from './QuizQuestion';
@@ -93,7 +94,7 @@ export default class QuizScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 64,
+    paddingTop: Constants.statusBarHeight + 44,
     paddingBottom: 50,
   },
   progress: {
