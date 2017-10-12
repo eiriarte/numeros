@@ -43,7 +43,11 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 8
+    padding: 8,
+    borderWidth: StyleSheet.hairlineWidth,
+    backgroundColor: 'white',
+    borderColor: 'gray',
+    minWidth: 180,
   },
   label: {
     margin: 4,

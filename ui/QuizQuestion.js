@@ -57,7 +57,12 @@ export default class QuizQuestion extends React.Component {
 const styles = StyleSheet.create({
   container: {
     padding: 8,
-    alignItems: 'stretch'
+    margin: 16,
+    alignItems: 'stretch',
+    borderWidth: StyleSheet.hairlineWidth,
+    backgroundColor: '#ececec',
+    borderColor: 'gray',
+    borderRadius: 3,
   },
   question: {
     marginBottom: 4,
