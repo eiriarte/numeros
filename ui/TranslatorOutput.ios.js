@@ -10,10 +10,18 @@ export default class TranslatorOutput extends React.Component {
   }
 
   render() {
+    const stylesNumeral = [ styles.numeral ];
+    if (this.props.number.letters.length > 100) {
+      stylesNumeral.push(styles.s);
+    } else if (this.props.number.letters.length > 40) {
+      stylesNumeral.push(styles.m);
+    } else {
+      stylesNumeral.push(styles.l);
+    }
     return (
       <ScrollView style={styles.scroll} contentContainerStyle={styles.container}>
         <ColoredText style={styles.digits} chunks={this.props.number.digitChunks} noun={this.props.noun}/>
-        <ColoredText style={styles.numeral} chunks={this.props.number.letterChunks} noun={this.props.noun}/>
+        <ColoredText style={stylesNumeral} chunks={this.props.number.letterChunks} noun={this.props.noun}/>
       </ScrollView>
     );
   }
@@ -33,7 +41,9 @@ const styles = StyleSheet.create({
   },
   numeral: {
     textAlign: 'center',
-    fontSize: 32,
     margin: 8
-  }
+  },
+  l: { fontSize: 32 },
+  m: { fontSize: 24 },
+  s: { fontSize: 18 }
 });
