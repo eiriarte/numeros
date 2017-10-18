@@ -1,7 +1,6 @@
 export default cheatSheets = [
-  { title: 'jarllll', source: require('./abc.html') },
-  { title: 'no puidor', source: require('./dummy.html') },
-  { title: 'pecador', source: require('./abc.html') },
-  { title: 'success!', source: require('./dummy.html') },
-  { title: 'jaaaAAAAaaaarllll', source: require('./abc.html') },
+  { title: 'Cardinals: 0-30', source: require('./cardinals-0-30.html') },
+  { title: 'Cardinals: 31-100', source: require('./cardinals-31-100.html') },
+  { title: 'Uses of numbers: Dates', source: require('./uses-dates.html') },
+  { title: 'Uses of numbers: Time', source: require('./uses-time.html') },
 ]
