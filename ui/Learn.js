@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, NavigatorIOS, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, NavigatorIOS, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import CheatSheetScreen from './CheatSheet';
 import cheatSheets from '../data/CheatSheets';
 
@@ -15,7 +15,8 @@ class ListItem extends React.Component {
   render() {
     return (
       <TouchableOpacity style={styles.item} onPress={this.onItemClick}>
-        <Text style={styles.itemTitle}>{this.props.item.title}</Text>
+        <Text style={styles.itemTitle} numberOfLines={1} >{this.props.item.title}</Text>
+        <Image source={require('../img/chevron.png')} />
       </TouchableOpacity>
     );
   }
@@ -41,18 +42,19 @@ class LearnScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  contentContainer: {
-    backgroundColor: 'lightgray'
+    backgroundColor: '#eef0f3'
   },
   item: {
-    padding: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 16,
     backgroundColor: 'white',
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: 'lightgray'
   },
   itemTitle: {
-    fontSize: 20,
+    flex: 1,
+    fontSize: 18,
   }
 });
 

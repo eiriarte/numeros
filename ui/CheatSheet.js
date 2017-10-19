@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, WebView } from 'react-native';
+import { WebView } from 'react-native';
 
 export default class CheatSheetScreen extends React.Component {
   render() {
