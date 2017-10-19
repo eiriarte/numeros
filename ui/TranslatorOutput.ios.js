@@ -20,8 +20,11 @@ export default class TranslatorOutput extends React.Component {
     }
     return (
       <ScrollView style={styles.scroll} contentContainerStyle={styles.container}>
-        <ColoredText style={styles.digits} chunks={this.props.number.digitChunks} noun={this.props.noun}/>
-        <ColoredText style={stylesNumeral} chunks={this.props.number.letterChunks} noun={this.props.noun}/>
+        <ColoredText style={styles.digits} chunks={this.props.number.digitChunks}
+          noun={this.props.noun} accessibilityLiveRegion='assertive'
+          accessibilityTraits='frequentUpdates' />
+        <ColoredText style={stylesNumeral} chunks={this.props.number.letterChunks}
+          noun={this.props.noun}/>
       </ScrollView>
     );
   }

@@ -98,7 +98,7 @@ export default class NavigatorTranslator extends React.Component {
           component: TranslatorScreen,
           title: 'Numbers',
           passProps: { onNumberChanged: this._onNumberChanged },
-          rightButtonIcon: require('../img/sound.png'),
+          rightButtonSystemIcon: 'play',
           onRightButtonPress: async () => {
             if (await Speech.isSpeakingAsync()) {
               Speech.stop();

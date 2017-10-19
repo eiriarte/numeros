@@ -29,9 +29,16 @@ export default class QuizRadioButton extends React.Component {
   }
 
   render() {
+    const btnTraits = ['button'];
+    let accText = this.props.children;
+    if (this.props.state === 'check') btnTraits.push('selected');
+    if (this.props.disabled) btnTraits.push('disabled');
+    if (this.props.state === 'right') accText = 'Right answer: ' + accText;
+    if (this.props.state === 'wrong') accText = 'Wrong answer: ' + accText;
     return (
       <TouchableOpacity style={styles.container} disabled={this.props.disabled}
-        onPress={() => this.props.onCheck(this.props.index)}>
+        onPress={() => this.props.onCheck(this.props.index)}
+        accessibilityTraits={btnTraits} accessibilityLabel={accText}>
         <Image source={this._getImage(this.props.state)} />
         <Text style={styles.label}>{this.props.children}</Text>
       </TouchableOpacity>

@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, ProgressViewIOS }
-  from 'react-native';
+import { AccessibilityInfo, StyleSheet, View, Text, TouchableOpacity,
+  ProgressViewIOS, findNodeHandle } from 'react-native';
 import { PropTypes } from 'prop-types';
 import { Speech, Constants } from 'expo';
 import _ from 'lodash';
@@ -57,16 +57,39 @@ export default class QuizScreen extends React.Component {
     }
   }
 
+  componentDidMount() {
+    if (this.scorePanel) {
+      const reactTag = findNodeHandle(this.scorePanel);
+      if (reactTag) {
+        setTimeout(() => {
+          AccessibilityInfo.setAccessibilityFocus(reactTag);
+        }, 300);
+      }
+    }
+  }
+
   render() {
     const current = this.state.right + this.state.wrong;
     const total = this.props.quiz.length;
     const item = this.props.quiz[current];
+    const answer = this.state.answer;
     const last = (current === total - 1);
-    const isBtnDisabled = _.isUndefined(this.state.answer);
+    const isBtnDisabled = _.isUndefined(answer);
     const isChecked = this.state.checked;
+    const btnTraits = ['button'];
+    const accProgressText = current + ' of ' + total + ' questions answered. ' +
+                    this.state.right + ' right answers.';
+    let accBtnText = 'Check your answer';
+    if (isChecked) {
+      accBtnText = 'Your answer is ';
+      accBtnText += (item.choices[answer] === item.answer) ? 'right' : 'wrong';
+      accBtnText += last ? '. Finish quiz.' : '. Next question.';
+    }
+    if (isBtnDisabled) btnTraits.push('disabled');
     return (
       <View style={styles.container}>
-        <View style={styles.progress}>
+        <View style={styles.progress} accessible={true}
+          accessibilityLabel={accProgressText} ref={(elem) => { this.scorePanel = elem; }}>
           <QuizScore label='Right' score={this.state.right} />
           <View style={styles.progressView}>
             <Text>{current} of {total}</Text>
@@ -75,10 +98,11 @@ export default class QuizScreen extends React.Component {
           <QuizScore label='Wrong' score={this.state.wrong} />
         </View>
         <View style={styles.quiz}>
-          <QuizQuestion answer={this.state.answer}
-            checked={isChecked} item={item} onChange={this._onChange}/>
-          <TouchableOpacity disabled={isBtnDisabled}
-            onPress={this._onCheckNext}>
+          <QuizQuestion answer={answer} checked={isChecked} item={item}
+            onChange={this._onChange} />
+          <TouchableOpacity disabled={isBtnDisabled} onPress={this._onCheckNext}
+            accessibilityComponentType='button' accessibilityTraits={btnTraits}
+            accessibilityLabel={accBtnText}>
             <Text style={[styles.button,
                 isBtnDisabled && styles.disabled,
                 isChecked && styles.checked]}>

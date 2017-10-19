@@ -93,7 +93,7 @@ export default class NavigatorDate extends React.Component {
           component: DateScreen,
           title: 'Dates',
           passProps: { onDateChanged: this._onDateChanged },
-          rightButtonIcon: require('../img/sound.png'),
+          rightButtonSystemIcon: 'play',
           onRightButtonPress: async () => {
             if (await Speech.isSpeakingAsync()) {
               Speech.stop();

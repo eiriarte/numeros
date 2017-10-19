@@ -28,11 +28,13 @@ export default class TranslatorKeyboard extends React.Component {
       if (keyLabel === 'GRA') {
         key = <Text style={styles.keyText}>{this.props.grammar}</Text>;
       } else if (keyLabel === 'DEL') {
-        key= <Image source={require('../img/backspace.png')} />;
+        key= <Image source={require('../img/backspace.png')}
+                accessibilityLabel='Backspace' />;
       }
       return (
         <TouchableOpacity style={keyStyles} key={i}
-          onPress={() => this.props.onKeyPressed(keyLabel)}>
+          onPress={() => this.props.onKeyPressed(keyLabel)}
+          accessibilityComponentType='button' accessibilityTraits='button'>
           {key}
         </TouchableOpacity>
       );

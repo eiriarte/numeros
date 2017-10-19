@@ -92,7 +92,7 @@ export default class NavigatorTime extends React.Component {
           component: TimeScreen,
           title: 'Time',
           passProps: { onTimeChanged: this._onTimeChanged },
-          rightButtonIcon: require('../img/sound.png'),
+          rightButtonSystemIcon: 'play',
           onRightButtonPress: async () => {
             if (await Speech.isSpeakingAsync()) {
               Speech.stop();

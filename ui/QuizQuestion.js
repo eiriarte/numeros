@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, AccessibilityInfo, findNodeHandle }
+  from 'react-native';
 import QuizRadioButton from './QuizRadioButton';
 
 export default class QuizQuestion extends React.Component {
@@ -24,6 +25,17 @@ export default class QuizQuestion extends React.Component {
     this.props.onChange(index);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.item.question !== this.props.item.question) {
+      setTimeout(() => {
+        const reactTag = findNodeHandle(this);
+        if (reactTag) {
+          AccessibilityInfo.setAccessibilityFocus(reactTag);
+        }
+      }, 300);
+    }
+  }
+
   render() {
     const choices = this.props.item.choices.map((choice, i) => {
       let state, answer, rightAnswer;
@@ -45,9 +57,15 @@ export default class QuizQuestion extends React.Component {
         </QuizRadioButton>
       );
     });
+    const accText = 'Question: ' + this.props.item.question +
+                    '. Select the right answer:';
     return (
       <View style={styles.container}>
-        <Text style={styles.question}>{this.props.item.question}</Text>
+        <View accessible={true} accessibilityLabel={accText}>
+          <Text style={styles.question}>
+            {this.props.item.question}
+          </Text>
+        </View>
         {choices}
       </View>
     );

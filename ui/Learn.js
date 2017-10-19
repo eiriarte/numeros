@@ -14,7 +14,8 @@ class ListItem extends React.Component {
 
   render() {
     return (
-      <TouchableOpacity style={styles.item} onPress={this.onItemClick}>
+      <TouchableOpacity style={styles.item} onPress={this.onItemClick}
+        accessibilityComponentType='button' accessibilityTraits='button'>
         <Text style={styles.itemTitle} numberOfLines={1} >{this.props.item.title}</Text>
         <Image source={require('../img/chevron.png')} />
       </TouchableOpacity>
