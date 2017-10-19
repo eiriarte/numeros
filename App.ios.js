@@ -20,7 +20,11 @@ export default class TabbedUI extends React.Component {
       require('./img/pr_state_right.png'),
       require('./img/pr_state_uncheck.png'),
       require('./img/pr_state_wrong.png'),
-      require('./img/chevron.png')
+      require('./img/chevron.png'),
+      require('./data/cardinals-0-30.html'),
+      require('./data/cardinals-31-100.html'),
+      require('./data/uses-dates.html'),
+      require('./data/uses-time.html')
     ]);
   }
 
