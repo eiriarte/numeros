@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, ToolbarAndroid, Image, Text, View } from 'react-native';
 import { PropTypes } from 'prop-types';
-import { Constants } from 'expo';
+import { Speech, Constants } from 'expo';
 import TranslatorKeyboard from './TranslatorKeyboard';
 import TranslatorOutput from './TranslatorOutput';
 import Numero from '../libs/numero';
@@ -11,7 +11,6 @@ const grammarValues = ['masc', 'fem', 'neu'];
 const grammarLabels = ['Masc', 'Fem', 'Noun'];
 
 export default class NavigatorTranslator extends React.Component {
-  // static propTypes = { onNumberChanged: PropTypes.func.isRequired }
   static navigationOptions = {
     tabBarLabel: 'Numbers',
     tabBarIcon: ({ tintColor }) => (
@@ -31,7 +30,7 @@ export default class NavigatorTranslator extends React.Component {
 
   _onActionSelected(position) {
     if (position === 0) {
-      console.log('SONANDO!!!!');
+      this.playAudio();
     }
   }
 
@@ -68,8 +67,15 @@ export default class NavigatorTranslator extends React.Component {
           return;
       }
     }
-    // this.props.onNumberChanged(this._numero.getNumber().letters);
     this.setState({ number: this._numero.getNumber() });
+  }
+
+  async playAudio() {
+    if (await Speech.isSpeakingAsync()) {
+      Speech.stop();
+    } else {
+      Speech.speak(this._numero.getNumber().letters, { language: 'es' });
+    }
   }
 
   render() {

@@ -6,7 +6,6 @@ import { Speech, Constants } from 'expo';
 import Fecha from '../libs/fecha';
 
 export default class NavigatorDate extends React.Component {
-  // static propTypes = { onDateChanged: PropTypes.func.isRequired }
   static navigationOptions = {
     tabBarLabel: 'Dates',
     tabBarIcon: ({ tintColor }) => (
@@ -23,21 +22,27 @@ export default class NavigatorDate extends React.Component {
     this.state = { date: now };
     this._onDateChange = this._onDateChange.bind(this);
     this._onActionSelected = this._onActionSelected.bind(this);
-    // this.props.onDateChanged(this._fecha.getDate().longForm);
   }
 
   _onActionSelected(position) {
     if (position === 0) {
       console.log('CAMBIANDO FECHA');
     } else if (position === 1) {
-      console.log('FECHA SONANDO!!!!');
+      this.playAudio();
     }
   }
 
   _onDateChange(date) {
     this._fecha.setDate(date);
-    // this.props.onDateChanged(this._fecha.getDate().longForm);
     this.setState({ date: date });
+  }
+
+  async playAudio() {
+    if (await Speech.isSpeakingAsync()) {
+      Speech.stop();
+    } else {
+      Speech.speak(this._fecha.getDate().longForm, { language: 'es' });
+    }
   }
 
   render() {

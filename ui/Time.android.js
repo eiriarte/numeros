@@ -5,7 +5,6 @@ import { Speech, Constants } from 'expo';
 import Hora from '../libs/hora';
 
 export default class TimeScreen extends React.Component {
-  // static propTypes = { onTimeChanged: PropTypes.func.isRequired }
   static navigationOptions = {
     tabBarLabel: 'Time',
     tabBarIcon: ({ tintColor }) => (
@@ -21,7 +20,6 @@ export default class TimeScreen extends React.Component {
     this._hora = new Hora(now);
     this.state = { time: now };
     this._onTimeChange = this._onTimeChange.bind(this);
-    // this.props.onTimeChanged(this._hora.getTime().letters);
     this._onActionSelected = this._onActionSelected.bind(this);
   }
 
@@ -29,14 +27,21 @@ export default class TimeScreen extends React.Component {
     if (position === 0) {
       console.log('CAMBIANDO HORA');
     } else if (position === 1) {
-      console.log('HORA SONANDO!!!!');
+      this.playAudio();
     }
   }
 
   _onTimeChange(time) {
     this._hora.setTime(time);
-    // this.props.onTimeChanged(this._hora.getTime().letters);
     this.setState({ time: time });
+  }
+
+  async playAudio() {
+    if (await Speech.isSpeakingAsync()) {
+      Speech.stop();
+    } else {
+      Speech.speak(this._hora.getTime().letters, { language: 'es' });
+    }
   }
 
   render() {
