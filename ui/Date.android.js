@@ -1,6 +1,6 @@
 import React from 'react';
-// import { StyleSheet, Text, View, DatePickerIOS, NavigatorIOS } from 'react-native';
-import { StyleSheet, ToolbarAndroid, Image, Text, View } from 'react-native';
+import { StyleSheet, DatePickerAndroid, ToolbarAndroid, Image, Text, View }
+  from 'react-native';
 import { PropTypes } from 'prop-types';
 import { Speech, Constants } from 'expo';
 import Fecha from '../libs/fecha';
@@ -20,21 +20,30 @@ export default class NavigatorDate extends React.Component {
     const now = new Date();
     this._fecha = new Fecha(now);
     this.state = { date: now };
-    this._onDateChange = this._onDateChange.bind(this);
     this._onActionSelected = this._onActionSelected.bind(this);
   }
 
   _onActionSelected(position) {
     if (position === 0) {
-      console.log('CAMBIANDO FECHA');
+      this.changeDate();
     } else if (position === 1) {
       this.playAudio();
     }
   }
 
-  _onDateChange(date) {
-    this._fecha.setDate(date);
-    this.setState({ date: date });
+  async changeDate() {
+    try {
+      const {action, year, month, day} = await DatePickerAndroid.open({
+        date: this._fecha.getDate().date
+      });
+      if (action !== DatePickerAndroid.dismissedAction) {
+        const date = new Date(year, month, day);
+        this._fecha.setDate(date);
+        this.setState({ date: date });
+      }
+    } catch ({code, message}) {
+      console.warn('Cannot open date picker', message);
+    }
   }
 
   async playAudio() {

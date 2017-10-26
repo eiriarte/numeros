@@ -28,6 +28,8 @@ export default class Hora {
     h = Numero.translate(h, 'neu');
     mm = Numero.translate(mm, 'neu');
 
+    this._time.hour = time.getHours();
+    this._time.minute = time.getMinutes();
     this._time.digits = hh + ':' + mmPadded + ' h';
     this._time.letters = fracciones(`${ini} ${h} ${conn} ${mm} ${tramo}`);
   }

@@ -11,6 +11,7 @@ export default class Fecha {
     const longDay = day === 1 ? '1º' : day;
     const month = date.getMonth();
     const year = date.getFullYear();
+    this._date.date = date;
     this._date.shortForm = day + '/' + (month + 1) + '/' + year;
     this._date.longForm = weekDay + ', ' + longDay + ' de ' + meses[month] +
                           ' de ' + year;
