@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button, ProgressViewIOS, findNodeHandle,
-  AccessibilityInfo } from 'react-native';
+import { StyleSheet, View, Text, Button, ProgressViewIOS, ProgressBarAndroid,
+  findNodeHandle, Platform, AccessibilityInfo } from 'react-native';
+import { Constants } from 'expo';
 import PropTypes from 'prop-types';
 import QuizScore from './QuizScore';
 
@@ -14,6 +15,7 @@ export default class FinishScreen extends React.Component {
   };
 
   componentDidMount() {
+    if (Platform.OS !== 'ios') return;
     if (this.scorePanel) {
       const reactTag = findNodeHandle(this.scorePanel);
       if (reactTag) {
@@ -31,14 +33,23 @@ export default class FinishScreen extends React.Component {
     const score = Math.floor(right*100/(right+wrong));
     const accProgressText = total + ' of ' + total + ' questions answered. ' +
                     right + ' right answers.';
+    let containerStyle, progressBar;
+    if (Platform.OS === 'ios') {
+      containerStyle = styles.containerIOS;
+      progressBar = <ProgressViewIOS style={{ width: '100%' }} progress={1}/>
+    } else if (Platform.OS === 'android') {
+      containerStyle = styles.containerAndroid;
+      progressBar = <ProgressBarAndroid styleAttr='Horizontal' indeterminate={false}
+        style={{ width: '100%' }} progress={1}/>
+    }
     return (
-      <View style={styles.container}>
+      <View style={containerStyle}>
         <View style={styles.progress} accessible={true}
           accessibilityLabel={accProgressText} ref={(elem) => { this.scorePanel = elem; }}>
           <QuizScore label='Right' score={right} />
           <View style={styles.progressView}>
             <Text>{total} of {total}</Text>
-            <ProgressViewIOS style={{ width: '100%' }} progress={1}/>
+            {progressBar}
           </View>
           <QuizScore label='Wrong' score={wrong} />
         </View>
@@ -54,10 +65,13 @@ export default class FinishScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  containerIOS: {
     flex: 1,
-    paddingTop: 64,
+    paddingTop: Constants.statusBarHeight + 44,
     paddingBottom: 50,
+  },
+  containerAndroid: {
+    flex: 1,
   },
   progress: {
     flexDirection: 'row'

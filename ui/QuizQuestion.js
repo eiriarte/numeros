@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, View, AccessibilityInfo, findNodeHandle }
+import { Platform, StyleSheet, Text, View, AccessibilityInfo, findNodeHandle }
   from 'react-native';
 import QuizRadioButton from './QuizRadioButton';
 
@@ -26,6 +26,7 @@ export default class QuizQuestion extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    if (Platform.OS !== 'ios') return;
     if (prevProps.item.question !== this.props.item.question) {
       setTimeout(() => {
         const reactTag = findNodeHandle(this);
@@ -75,7 +76,7 @@ export default class QuizQuestion extends React.Component {
 const styles = StyleSheet.create({
   container: {
     padding: 8,
-    margin: 16,
+    marginBottom: 16,
     alignItems: 'stretch',
     borderWidth: StyleSheet.hairlineWidth,
     backgroundColor: '#ececec',

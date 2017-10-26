@@ -1,8 +1,8 @@
 import React from 'react';
-import { AccessibilityInfo, StyleSheet, View, Text, TouchableOpacity,
-  ProgressViewIOS, findNodeHandle } from 'react-native';
+import { AccessibilityInfo, Platform, StyleSheet, View, Text, TouchableOpacity,
+  ProgressViewIOS, ProgressBarAndroid, findNodeHandle } from 'react-native';
 import { PropTypes } from 'prop-types';
-import { Speech, Constants } from 'expo';
+import { Constants } from 'expo';
 import _ from 'lodash';
 import QuizScore from './QuizScore';
 import QuizQuestion from './QuizQuestion';
@@ -58,6 +58,7 @@ export default class QuizScreen extends React.Component {
   }
 
   componentDidMount() {
+    if (Platform.OS !== 'ios') return;
     if (this.scorePanel) {
       const reactTag = findNodeHandle(this.scorePanel);
       if (reactTag) {
@@ -79,6 +80,7 @@ export default class QuizScreen extends React.Component {
     const btnTraits = ['button'];
     const accProgressText = current + ' of ' + total + ' questions answered. ' +
                     this.state.right + ' right answers.';
+    let progressBar, containerStyle;
     let accBtnText = 'Check your answer';
     if (isChecked) {
       accBtnText = 'Your answer is ';
@@ -86,14 +88,22 @@ export default class QuizScreen extends React.Component {
       accBtnText += last ? '. Finish quiz.' : '. Next question.';
     }
     if (isBtnDisabled) btnTraits.push('disabled');
+    if (Platform.OS === 'ios') {
+      containerStyle = styles.containerIOS;
+      progressBar = <ProgressViewIOS style={{ width: '100%' }} progress={current/total}/>
+    } else if (Platform.OS === 'android') {
+      containerStyle = styles.containerAndroid;
+      progressBar = <ProgressBarAndroid styleAttr='Horizontal' indeterminate={false}
+        style={{ width: '100%' }} progress={current/total}/>
+    }
     return (
-      <View style={styles.container}>
+      <View style={containerStyle}>
         <View style={styles.progress} accessible={true}
           accessibilityLabel={accProgressText} ref={(elem) => { this.scorePanel = elem; }}>
           <QuizScore label='Right' score={this.state.right} />
           <View style={styles.progressView}>
             <Text>{current} of {total}</Text>
-            <ProgressViewIOS style={{ width: '100%' }} progress={current/total}/>
+            {progressBar}
           </View>
           <QuizScore label='Wrong' score={this.state.wrong} />
         </View>
@@ -116,10 +126,13 @@ export default class QuizScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  containerIOS: {
     flex: 1,
     paddingTop: Constants.statusBarHeight + 44,
     paddingBottom: 50,
+  },
+  containerAndroid: {
+    flex: 1,
   },
   progress: {
     flexDirection: 'row'
