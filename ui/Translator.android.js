@@ -2,20 +2,27 @@ import React from 'react';
 import { StyleSheet, ToolbarAndroid, Image, Text, View } from 'react-native';
 import { PropTypes } from 'prop-types';
 import { Speech, Constants } from 'expo';
+import { SinglePickerMaterialDialog } from '../MaterialDialog';
 import TranslatorKeyboard from './TranslatorKeyboard';
 import TranslatorOutput from './TranslatorOutput';
 import Numero from '../libs/numero';
 
-const grammarOptions = ['Masculine adjective', 'Femenine adjective', 'Noun', 'Cancel'];
-const grammarValues = ['masc', 'fem', 'neu'];
-const grammarLabels = ['Masc', 'Fem', 'Noun'];
+const grammarOptions = [
+  { label: 'Masculine adjective', value: 'masc' },
+  { label: 'Femenine adjective', value: 'fem' },
+  { label: 'Noun', value: 'neu' }
+];
+const grammarLabels = {
+  'masc': 'Masc',
+  'fem': 'Fem',
+  'neu': 'Noun'
+}
 
 export default class NavigatorTranslator extends React.Component {
   static navigationOptions = {
     tabBarLabel: 'Numbers',
     tabBarIcon: ({ tintColor }) => (
-      <Image
-        source={require('../img/android_dialpad.png')}
+      <Image source={require('../img/android_dialpad.png')}
         style={{ tintColor: tintColor }}/>
     )
   }
@@ -23,9 +30,15 @@ export default class NavigatorTranslator extends React.Component {
   constructor(props) {
     super(props);
     this._numero = new Numero();
-    this.state = { number: this._numero.getNumber(), grammar: 'Noun' };
+    this.state = {
+      number: this._numero.getNumber(),
+      grammar: 'Noun',
+      grammarModalVisible: false,
+      grammarSelected: grammarOptions[2]
+    };
     this._onKeyPressed = this._onKeyPressed.bind(this);
     this._onActionSelected = this._onActionSelected.bind(this);
+    this._onGrammarChanged = this._onGrammarChanged.bind(this);
   }
 
   _onActionSelected(position) {
@@ -49,25 +62,22 @@ export default class NavigatorTranslator extends React.Component {
           this._numero.del();
           break;
         case 'GRA':
-          // ActionSheetIOS.showActionSheetWithOptions({
-          //   options: grammarOptions,
-          //   cancelButtonIndex: 3,
-          //   title: 'Type of numeral',
-          // }, (buttonIndex) => {
-          //   const grammar = grammarValues[buttonIndex];
-          //   if (grammar) {
-          //     this._numero.setGrammar(grammar);
-          //     this.props.onNumberChanged(this._numero.getNumber().letters);
-          //     this.setState({
-          //       number: this._numero.getNumber(),
-          //       grammar: grammarLabels[buttonIndex]
-          //     });
-          //   }
-          // });
+          this.setState({ grammarModalVisible: true });
           return;
       }
     }
     this.setState({ number: this._numero.getNumber() });
+  }
+
+  _onGrammarChanged(result) {
+    const item = result.selectedItem;
+    this._numero.setGrammar(item.value);
+    this.setState({
+      number: this._numero.getNumber(),
+      grammarModalVisible: false,
+      grammarSelected: item,
+      grammar: grammarLabels[item.value]
+    });
   }
 
   async playAudio() {
@@ -81,6 +91,10 @@ export default class NavigatorTranslator extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <SinglePickerMaterialDialog title='Type of numeral'
+          items={grammarOptions} selectedItem={this.state.grammarSelected}
+          visible={this.state.grammarModalVisible} onOk={this._onGrammarChanged}
+          onCancel={() => this.setState({ grammarModalVisible: false })} />
         <ToolbarAndroid
           style={styles.toolbar} title='Numbers' titleColor='#ffffff'
           actions={[
