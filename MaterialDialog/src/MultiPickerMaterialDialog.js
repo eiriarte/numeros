@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, Text, TouchableOpacity, View, ListView, Platform } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+// import Icon from 'react-native-vector-icons/MaterialIcons';
 import MaterialDialog from './MaterialDialog';
 
 import colors from './colors';
@@ -52,12 +52,7 @@ export default class MultiPickerMaterialDialog extends Component {
       <View
         style={styles.rowContainer}>
         <View style={styles.iconContainer}>
-          <Icon
-            name={row.selected
-            ? 'check-box'
-            : 'check-box-outline-blank'}
-            color={this.props.colorAccent}
-            size={24} />
+          {/* <Icon name={row.selected ? 'check-box' : 'check-box-outline-blank'} color={this.props.colorAccent} size={24} /> */}
         </View>
         <Text
           style={styles.rowText}>{row.label}</Text>

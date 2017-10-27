@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-  StyleSheet,
-  Modal,
-  Text,
-  Platform,
-  TouchableHighlight,
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-  View,
-  Dimensions,
+import { StyleSheet, Modal, Text, Platform, TouchableHighlight, KeyboardAvoidingView,
+  TouchableWithoutFeedback, View, Dimensions,
 } from 'react-native';
 import colors from './colors';
 
@@ -212,4 +204,3 @@ ActionButton.propTypes = {
   label: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
 };
-
