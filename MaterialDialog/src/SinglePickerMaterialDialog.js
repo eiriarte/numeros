@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, TouchableOpacity, View, ListView, Platform } from 'react-native';
-// import Icon from 'react-native-vector-icons/MaterialIcons';
+import { StyleSheet, Text, TouchableOpacity, View, Image, ListView, Platform }
+  from 'react-native';
 import MaterialDialog from './MaterialDialog';
 
 import colors from './colors';
@@ -69,18 +69,23 @@ export default class SinglePickerMaterialDialog extends Component {
     this.setState({ dataSource, rows, selectedIndex: rowID });
   }
 
-  renderRow = (row, sectionID, rowID) => (
-    <TouchableOpacity key={row.value} onPress={() => this.onRowPress(rowID)}>
-      <View
-        style={styles.rowContainer}>
-        <View style={styles.iconContainer}>
-          {/* <Icon name={row.selected ? 'radio-button-checked' : 'radio-button-unchecked'} color={this.props.colorAccent} size={24} /> */}
+  renderRow = (row, sectionID, rowID) => {
+    const checkImg = row.selected ?
+      require('../img/android_radio_checked.png') :
+      require('../img/android_radio_unchecked.png');
+    return (
+      <TouchableOpacity key={row.value} onPress={() => this.onRowPress(rowID)}>
+        <View
+          style={styles.rowContainer}>
+          <View style={styles.iconContainer}>
+            <Image source={checkImg} style={{ tintColor: this.props.colorAccent }}/>
+          </View>
+          <Text
+            style={styles.rowText}>{row.label}</Text>
         </View>
-        <Text
-          style={styles.rowText}>{row.label}</Text>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
     );
+  };
 
   render() {
     return (
