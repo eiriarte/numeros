@@ -24,6 +24,7 @@ class TranslatorScreen extends React.Component {
 
   _onKeyPressed(key) {
     if (key >= '0' && key <= '9') {
+      if (this._numero.getNumber().digits.length >= 126) return;
       this._numero.addDigit(key);
     } else {
       switch (key) {
