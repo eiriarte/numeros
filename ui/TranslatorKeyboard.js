@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
+    marginBottom: Platform.OS === 'ios' ? 50 : 0,
   },
   col: {
     flex: 1

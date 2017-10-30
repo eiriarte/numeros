@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, ScrollView, Text } from 'react-native';
+import { Platform, StyleSheet, ScrollView, Text } from 'react-native';
+import { Constants } from 'expo';
 import ColoredText from './ColoredText';
 
 export default class TranslatorOutput extends React.Component {
@@ -19,7 +20,7 @@ export default class TranslatorOutput extends React.Component {
       stylesNumeral.push(styles.l);
     }
     return (
-      <ScrollView style={styles.scroll} contentContainerStyle={styles.container}>
+      <ScrollView style={styles.scroll}>
         <ColoredText style={styles.digits} chunks={this.props.number.digitChunks}
           noun={this.props.noun} accessibilityLiveRegion='assertive'
           accessibilityTraits='frequentUpdates' />
@@ -35,12 +36,11 @@ const styles = StyleSheet.create({
     width: '100%',
     flex: 1,
   },
-  container: {
-    alignItems: 'center',
-  },
   digits: {
+    textAlign: 'center',
     fontSize: 18,
-    margin: 8
+    margin: 8,
+    marginTop: 32
   },
   numeral: {
     textAlign: 'center',
