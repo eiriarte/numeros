@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View, Image, TouchableOpacity, Text } from 'react-native';
+import { Platform, StyleSheet, View, Image, TouchableOpacity, Text }
+  from 'react-native';
 
 const column1 = ['GRA', '0'];
 const column2 = ['7', '4', '1'];
@@ -20,16 +21,23 @@ export default class TranslatorKeyboard extends React.Component {
   }
 
   _getColumn(col) {
+    const backspace = Platform.OS === 'android' ?
+      require('../img/android_backspace.png') :
+      require('../img/backspace.png');
     return col.map((keyLabel, i) => {
       const keyStyles = [ styles.key ];
+      const textStyles = [ styles.keyText ];
       if (keyLabel === '0') keyStyles.push(styles.tallKey);
-      if (/^\d$/.test(keyLabel)) keyStyles.push(styles.digitKey);
-      let key = <Text style={styles.keyText}>{keyLabel}</Text>;
+      if (/^\d$/.test(keyLabel)) {
+        keyStyles.push(styles.digitKey);
+        textStyles.push(styles.digitText);
+      }
+      let key = <Text style={textStyles}>{keyLabel}</Text>;
       if (keyLabel === 'GRA') {
         key = <Text style={styles.keyText}>{this.props.grammar}</Text>;
       } else if (keyLabel === 'DEL') {
-        key= <Image source={require('../img/backspace.png')}
-                accessibilityLabel='Backspace' />;
+        key = <Image source={backspace} style={{ tintColor: '#555555' }}
+          accessibilityLabel='Backspace' />;
       }
       return (
         <TouchableOpacity style={keyStyles} key={i}
@@ -84,14 +92,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1
   },
-  digitKey: {
-    backgroundColor: '#ececec'
-  },
   tallKey: {
     flex: 2
   },
   keyText: {
     textAlign: 'center',
+    color: 'rgba(0, 0, 0, 0.65)',
     fontSize: 22
+  },
+  digitKey: {
+    backgroundColor: '#ececec'
+  },
+  digitText: {
+    color: 'black'
   }
 });
