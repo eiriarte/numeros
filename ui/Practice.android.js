@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: Constants.statusBarHeight,
+    backgroundColor: '#fff',
   },
   toolbar: {
     backgroundColor: '#3849aa',
