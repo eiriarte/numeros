@@ -1,6 +1,6 @@
 import React from 'react';
 import { TabBarIOS, Text, View, Image } from 'react-native';
-import { Asset } from 'expo';
+import { AppLoading, Asset } from 'expo';
 
 import NavigatorTranslator from './ui/Translator';
 import NavigatorDate from './ui/Date';
@@ -10,11 +10,12 @@ import NavigatorPractice from './ui/Practice';
 
 export default class TabbedUI extends React.Component {
   state = {
-    selected: 'TranslatorTab'
+    selected: 'TranslatorTab',
+    isReady: false
   };
 
-  componentWillMount() {
-    Asset.loadAsync([
+  async _preloadAssets() {
+    await Asset.loadAsync([
       require('./img/backspace.png'),
       require('./img/pr_state_check.png'),
       require('./img/pr_state_right.png'),
@@ -27,8 +28,17 @@ export default class TabbedUI extends React.Component {
       require('./data/uses-time.html')
     ]);
   }
-
   render() {
+    if (!this.state.isReady) {
+      return (
+        <AppLoading
+          startAsync={this._preloadAssets}
+          onFinish={() => this.setState({ isReady: true })}
+          onError={console.warn}
+        />
+      );
+    }
+
     return (
       <TabBarIOS>
         <TabBarIOS.Item title="Numbers"
