@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Platform, StyleSheet, View, Image, TouchableOpacity, Text }
   from 'react-native';
 
-const column1 = ['GRA', '0'];
+const column1 = ['GRA', 'C', '0'];
 const column2 = ['7', '4', '1'];
 const column3 = ['8', '5', '2'];
 const column4 = ['9', '6', '3'];
@@ -27,7 +27,6 @@ export default class TranslatorKeyboard extends React.Component {
     return col.map((keyLabel, i) => {
       const keyStyles = [ styles.key ];
       const textStyles = [ styles.keyText ];
-      if (keyLabel === '0') keyStyles.push(styles.tallKey);
       if (/^\d$/.test(keyLabel)) {
         keyStyles.push(styles.digitKey);
         textStyles.push(styles.digitText);
@@ -92,9 +91,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1
-  },
-  tallKey: {
-    flex: 2
   },
   keyText: {
     textAlign: 'center',

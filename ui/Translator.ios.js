@@ -37,6 +37,9 @@ class TranslatorScreen extends React.Component {
         case 'DEL':
           this._numero.del();
           break;
+        case 'C':
+          this._numero.clear();
+          break;
         case 'GRA':
           ActionSheetIOS.showActionSheetWithOptions({
             options: grammarOptions,

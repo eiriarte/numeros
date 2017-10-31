@@ -62,6 +62,9 @@ export default class NavigatorTranslator extends React.Component {
         case 'DEL':
           this._numero.del();
           break;
+        case 'C':
+          this._numero.clear();
+          break;
         case 'GRA':
           this.setState({ grammarModalVisible: true });
           return;
