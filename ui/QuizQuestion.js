@@ -78,10 +78,13 @@ const styles = StyleSheet.create({
     padding: 8,
     marginBottom: 16,
     alignItems: 'stretch',
-    borderWidth: StyleSheet.hairlineWidth,
     backgroundColor: '#ececec',
     borderColor: 'gray',
     borderRadius: 3,
+    ...Platform.select({
+      ios: { borderWidth: StyleSheet.hairlineWidth },
+      android: { elevation: 2 }
+    })
   },
   question: {
     marginBottom: 4,

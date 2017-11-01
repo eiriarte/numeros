@@ -57,7 +57,10 @@ const MainTabNavigator = TabNavigator({
   tabBarComponent: TabBarBottom,
   tabBarPosition: 'bottom',
   swipeEnabled: false,
-  animationEnabled: false
+  animationEnabled: false,
+  style: {
+    elevation: 8
+  }
 });
 
 const MainNavigator = StackNavigator({

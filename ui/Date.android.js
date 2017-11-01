@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#3849aa',
     height: 56,
     alignSelf: 'stretch',
+    elevation: 6
   },
   output: {
     width: '100%',
