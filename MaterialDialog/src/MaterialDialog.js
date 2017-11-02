@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Modal, Text, Platform, TouchableHighlight, KeyboardAvoidingView,
+import { StyleSheet, Modal, Text, Platform, TouchableNativeFeedback, KeyboardAvoidingView,
   TouchableWithoutFeedback, View, Dimensions,
 } from 'react-native';
 import colors from './colors';
@@ -14,15 +14,16 @@ const {height, width} = Dimensions.get('window');
 class ActionButton extends Component {
   render() {
     return (
-      <TouchableHighlight
-        style={styles.actionContainer}
+      <TouchableNativeFeedback
         underlayColor={colors.androidPressedUnderlay}
         onPress={this.props.onPress}>
-        <Text
-          style={[styles.actionText, { color: this.props.colorAccent }]}>
-          {this.props.label}
-        </Text>
-      </TouchableHighlight>
+        <View style={styles.actionContainer}>
+          <Text
+            style={[styles.actionText, { color: this.props.colorAccent }]}>
+            {this.props.label}
+          </Text>
+        </View>
+      </TouchableNativeFeedback>
     );
   }
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, TouchableOpacity, View, Image, ListView, Platform }
+import { StyleSheet, Text, TouchableNativeFeedback, View, Image, ListView, Platform }
   from 'react-native';
 import MaterialDialog from './MaterialDialog';
 
@@ -74,7 +74,8 @@ export default class SinglePickerMaterialDialog extends Component {
       require('../img/android_radio_checked.png') :
       require('../img/android_radio_unchecked.png');
     return (
-      <TouchableOpacity key={row.value} onPress={() => this.onRowPress(rowID)}>
+      <TouchableNativeFeedback
+        key={row.value} onPress={() => this.onRowPress(rowID)}>
         <View
           style={styles.rowContainer}>
           <View style={styles.iconContainer}>
@@ -83,7 +84,7 @@ export default class SinglePickerMaterialDialog extends Component {
           <Text
             style={styles.rowText}>{row.label}</Text>
         </View>
-      </TouchableOpacity>
+      </TouchableNativeFeedback>
     );
   };
 
