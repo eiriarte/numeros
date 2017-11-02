@@ -40,6 +40,7 @@ class BetterButton extends React.Component {
     } = this.props;
     const buttonStyles = [styles.button, buttonStyle];
     const textStyles = [styles.text, textStyle];
+    let formattedTitle = Platform.OS === 'android' ? title.toUpperCase() : title;
     if (color) {
       if (Platform.OS === 'ios') {
         textStyles.push({color: color});
@@ -54,7 +55,9 @@ class BetterButton extends React.Component {
     }
     if (Platform.OS === 'ios') {
       if (bordered) {
-        buttonStyles.push(styles.bordered);
+        buttonStyles.push(styles.buttonBordered);
+        textStyles.push(styles.textBordered);
+        formattedTitle = formattedTitle.toLowerCase();
       }
       if (inverse) {
         buttonStyles.push(styles.buttonInverse);
@@ -66,7 +69,6 @@ class BetterButton extends React.Component {
       textStyles.push(styles.textDisabled);
       accessibilityTraits.push('disabled');
     }
-    const formattedTitle = Platform.OS === 'android' ? title.toUpperCase() : title;
     const Touchable = Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity;
     return (
       <Touchable
@@ -142,10 +144,14 @@ const styles = StyleSheet.create({
   textInverse: {
     color: 'white',
   },
-  bordered: {
+  buttonBordered: {
     borderColor: '#007AFF',
     borderWidth: 1,
     borderRadius: 3
+  },
+  textBordered: {
+    fontWeight: '500',
+    fontVariant: ['small-caps']
   }
 });
 
