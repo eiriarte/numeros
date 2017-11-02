@@ -41,7 +41,8 @@ export default class TranslatorKeyboard extends React.Component {
       const Touchable = Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity;
       return (
         <Touchable key={i} onPress={() => this.props.onKeyPressed(keyLabel)}
-          accessibilityComponentType='button' accessibilityTraits='button'>
+          accessibilityComponentType='button' accessibilityTraits='button'
+          style={{flex: 1}}>
           <View style={keyStyles}>{key}</View>
         </Touchable>
       );
