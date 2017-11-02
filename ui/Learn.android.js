@@ -1,8 +1,7 @@
 import React from 'react';
-import { StyleSheet, ToolbarAndroid, View, Text, Image, TouchableOpacity,
+import { StyleSheet, ToolbarAndroid, View, Text, Image, TouchableNativeFeedback,
   ScrollView } from 'react-native';
 import { Constants } from 'expo';
-// import { StyleSheet, NavigatorIOS, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import CheatSheetScreen from './CheatSheet';
 import cheatSheets from '../data/CheatSheets';
 
@@ -14,10 +13,14 @@ class ListItem extends React.Component {
 
   render() {
     return (
-      <TouchableOpacity style={styles.item} onPress={this.onItemClick}
+      <TouchableNativeFeedback onPress={this.onItemClick}
         accessibilityComponentType='button' accessibilityTraits='button'>
-        <Text style={styles.itemTitle} numberOfLines={1} >{this.props.item.title}</Text>
-      </TouchableOpacity>
+        <View style={styles.item}>
+          <Text style={styles.itemTitle} numberOfLines={1} >
+            {this.props.item.title}
+          </Text>
+        </View>
+      </TouchableNativeFeedback>
     );
   }
 }

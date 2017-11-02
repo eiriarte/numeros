@@ -111,17 +111,6 @@ export default class QuizScreen extends React.Component {
         <View style={styles.quiz}>
           <QuizQuestion answer={answer} checked={isChecked} item={item}
             onChange={this._onChange} />
-          {/*
-          <TouchableOpacity disabled={isBtnDisabled} onPress={this._onCheckNext}
-            accessibilityComponentType='button' accessibilityTraits={btnTraits}
-            accessibilityLabel={accBtnText}>
-            <Text style={[styles.button,
-                isBtnDisabled && styles.disabled,
-                isChecked && styles.checked]}>
-              {isChecked ? (last?'Finish':'Next') : 'Check'}
-            </Text>
-          </TouchableOpacity>
-            */}
           <BetterButton title={isChecked ? (last?'Finish':'Next') : 'Check'}
             onPress={this._onCheckNext} disabled={isBtnDisabled}
             accessibilityTraits={btnTraits} accessibilityLabel={accBtnText}
@@ -157,23 +146,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  button: {
-    minWidth: 80,
-    textAlign: 'center',
-    borderColor: 'black',
-    borderWidth: 1,
-    borderRadius: 3,
-    fontSize: 18,
-    padding: 8
-  },
-  disabled: {
-    opacity: 0.5
-  },
-  checked: {
-    backgroundColor: '#228B22',
-    borderColor: '#228B22',
-    borderRadius: 3,
-    overflow: 'hidden',
-    color: 'white'
-  }
 });

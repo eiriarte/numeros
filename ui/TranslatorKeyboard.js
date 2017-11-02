@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Platform, StyleSheet, View, Image, TouchableOpacity, Text }
-  from 'react-native';
+import { Platform, StyleSheet, View, Image, TouchableOpacity,
+  TouchableNativeFeedback, Text } from 'react-native';
 
 const column1 = ['GRA', 'C', '0'];
 const column2 = ['7', '4', '1'];
@@ -38,12 +38,12 @@ export default class TranslatorKeyboard extends React.Component {
         key = <Image source={backspace} style={{ tintColor: '#555555' }}
           accessibilityLabel='Backspace' />;
       }
+      const Touchable = Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity;
       return (
-        <TouchableOpacity style={keyStyles} key={i}
-          onPress={() => this.props.onKeyPressed(keyLabel)}
+        <Touchable key={i} onPress={() => this.props.onKeyPressed(keyLabel)}
           accessibilityComponentType='button' accessibilityTraits='button'>
-          {key}
-        </TouchableOpacity>
+          <View style={keyStyles}>{key}</View>
+        </Touchable>
       );
     });
   }

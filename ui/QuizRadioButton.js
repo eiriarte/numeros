@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
+import { Platform, StyleSheet, View, Text, Image, TouchableOpacity,
+  TouchableNativeFeedback } from 'react-native';
 
 export default class QuizRadioButton extends React.Component {
   static CHECK = 'check';
@@ -35,13 +36,17 @@ export default class QuizRadioButton extends React.Component {
     if (this.props.disabled) btnTraits.push('disabled');
     if (this.props.state === 'right') accText = 'Right answer: ' + accText;
     if (this.props.state === 'wrong') accText = 'Wrong answer: ' + accText;
+    const Touchable = Platform.OS === 'ios' ?
+      TouchableOpacity : TouchableNativeFeedback;
     return (
-      <TouchableOpacity style={styles.container} disabled={this.props.disabled}
+      <Touchable disabled={this.props.disabled}
         onPress={() => this.props.onCheck(this.props.index)}
         accessibilityTraits={btnTraits} accessibilityLabel={accText}>
-        <Image source={this._getImage(this.props.state)} />
-        <Text style={styles.label}>{this.props.children}</Text>
-      </TouchableOpacity>
+        <View style={styles.container}>
+          <Image source={this._getImage(this.props.state)} />
+          <Text style={styles.label}>{this.props.children}</Text>
+        </View>
+      </Touchable>
     );
   }
 }
