@@ -6,6 +6,7 @@ import { Constants } from 'expo';
 import _ from 'lodash';
 import QuizScore from './QuizScore';
 import QuizQuestion from './QuizQuestion';
+import BetterButton from './BetterButton';
 
 export default class QuizScreen extends React.Component {
   static propTypes = {
@@ -110,6 +111,7 @@ export default class QuizScreen extends React.Component {
         <View style={styles.quiz}>
           <QuizQuestion answer={answer} checked={isChecked} item={item}
             onChange={this._onChange} />
+          {/*
           <TouchableOpacity disabled={isBtnDisabled} onPress={this._onCheckNext}
             accessibilityComponentType='button' accessibilityTraits={btnTraits}
             accessibilityLabel={accBtnText}>
@@ -119,6 +121,14 @@ export default class QuizScreen extends React.Component {
               {isChecked ? (last?'Finish':'Next') : 'Check'}
             </Text>
           </TouchableOpacity>
+            */}
+          <BetterButton title={isChecked ? (last?'Finish':'Next') : 'Check'}
+            onPress={this._onCheckNext} disabled={isBtnDisabled}
+            accessibilityTraits={btnTraits} accessibilityLabel={accBtnText}
+            light={ Platform.OS === 'android' && !isBtnDisabled && !isChecked }
+            color={ Platform.OS === 'android' ? '#3849aa' : '' }
+            inverse={ Platform.OS === 'ios' && isChecked }
+            bordered={ Platform.OS === 'ios' } />
         </View>
       </View>
     );

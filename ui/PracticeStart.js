@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { Platform, StyleSheet, View, Text } from 'react-native';
 import PropTypes from 'prop-types';
+import BetterButton from './BetterButton';
 
 export default class StartScreen extends React.Component {
   static propTypes = {
@@ -11,7 +12,9 @@ export default class StartScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text>Ready, set, go!</Text>
-        <Button title="Start quiz" onPress={this.props.onStart}/>
+        <BetterButton title="Start quiz" onPress={this.props.onStart}
+          color={Platform.OS === 'android' ? '#3849aa' : '' }
+          bordered={true} />
       </View>
     );
   }

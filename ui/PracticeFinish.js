@@ -4,6 +4,7 @@ import { StyleSheet, View, Text, Button, ProgressViewIOS, ProgressBarAndroid,
 import { Constants } from 'expo';
 import PropTypes from 'prop-types';
 import QuizScore from './QuizScore';
+import BetterButton from './BetterButton';
 
 export default class FinishScreen extends React.Component {
   static propTypes = {
@@ -57,7 +58,9 @@ export default class FinishScreen extends React.Component {
           <View accessible={true} accessibilityLabel={ 'Your score: ' + score + '%' }>
             <Text style={styles.grade}>{score}%</Text>
           </View>
-          <Button title="Take another quiz" onPress={this.props.onStart}/>
+          <BetterButton title="Take another quiz" onPress={this.props.onStart}
+            color={Platform.OS === 'android' ? '#3849aa' : '' }
+            bordered={true} />
         </View>
       </View>
     );
