@@ -70,19 +70,25 @@ export default class SinglePickerMaterialDialog extends Component {
   }
 
   renderRow = (row, sectionID, rowID) => {
-    const checkImg = row.selected ?
-      require('../img/android_radio_checked.png') :
-      require('../img/android_radio_unchecked.png');
+    let checkImg, checkTint;
+
+    if (row.selected) {
+      checkImg = require('../img/android_radio_checked.png');
+      checkTint = this.props.colorAccent;
+    } else {
+      checkImg = require('../img/android_radio_unchecked.png');
+      checkTint = 'rgba(0, 0, 0, 0.54)';
+    }
+
     return (
       <TouchableNativeFeedback
         key={row.value} onPress={() => this.onRowPress(rowID)}>
         <View
           style={styles.rowContainer}>
           <View style={styles.iconContainer}>
-            <Image source={checkImg} style={{ tintColor: this.props.colorAccent }}/>
+            <Image source={checkImg} style={{ tintColor: checkTint }}/>
           </View>
-          <Text
-            style={styles.rowText}>{row.label}</Text>
+          <Text style={styles.rowText}>{row.label}</Text>
         </View>
       </TouchableNativeFeedback>
     );
