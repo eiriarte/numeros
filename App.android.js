@@ -61,8 +61,15 @@ const MainTabNavigator = TabNavigator({
   tabBarPosition: 'bottom',
   swipeEnabled: false,
   animationEnabled: false,
-  style: {
-    elevation: 8
+  tabBarOptions: {
+    activeTintColor: '#3949ab',
+    inactiveTintColor: 'rgba(0, 0, 0, 0.54)',
+    style: {
+      backgroundColor: 'white',
+      borderTopWidth: 0,
+      elevation: 16,
+      height: 56
+    },
   }
 });
 
