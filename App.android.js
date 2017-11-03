@@ -36,6 +36,8 @@ export default class App extends React.Component {
       require('./img/android_play.png'),
       require('./img/android_time.png'),
       require('./img/android_doc.png'),
+      require('./img/android_good.png'),
+      require('./img/android_bad.png'),
       require('./data/cardinals-0-30.html'),
       require('./data/cardinals-31-100.html'),
       require('./data/uses-dates.html'),

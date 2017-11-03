@@ -3,39 +3,54 @@ import PropTypes from 'prop-types';
 import { Platform, StyleSheet, View, Text, Image, TouchableOpacity,
   TouchableNativeFeedback } from 'react-native';
 
+const CHECK = 'check';
+const UNCHECK = 'uncheck';
+const RIGHT = 'right';
+const WRONG = 'wrong';
+
+
 export default class QuizRadioButton extends React.Component {
-  static CHECK = 'check';
-  static UNCHECK = 'uncheck';
-  static RIGHT = 'right';
-  static WRONG = 'wrong';
   static propTypes = {
     label: PropTypes.string.isRequired,
-    state: PropTypes.oneOf(['check', 'uncheck', 'right', 'wrong']).isRequired,
+    state: PropTypes.oneOf([CHECK, UNCHECK, RIGHT, WRONG]).isRequired,
     index: PropTypes.number.isRequired,
     disabled: PropTypes.bool,
     onCheck: PropTypes.func
   };
 
   _getImage(state) {
-    switch (state) {
-      case 'check':
-        return require('../img/pr_state_check.png');
-      case 'uncheck':
-        return require('../img/pr_state_uncheck.png');
-      case 'right':
-        return require('../img/pr_state_right.png');
-      case 'wrong':
-        return require('../img/pr_state_wrong.png');
+    if (Platform.OS === 'ios') {
+      switch (state) {
+        case CHECK:
+          return require('../img/pr_state_check.png');
+        case UNCHECK:
+          return require('../img/pr_state_uncheck.png');
+        case RIGHT:
+          return require('../img/pr_state_right.png');
+        case WRONG:
+          return require('../img/pr_state_wrong.png');
+      }
+    } else if (Platform.OS === 'android') {
+      switch (state) {
+        case CHECK:
+          return require('../MaterialDialog/img/android_radio_checked.png');
+        case UNCHECK:
+          return require('../MaterialDialog/img/android_radio_unchecked.png');
+        case RIGHT:
+          return require('../img/android_good.png');
+        case WRONG:
+          return require('../img/android_bad.png');
+      }
     }
   }
 
   render() {
     const btnTraits = ['button'];
     let accText = this.props.children;
-    if (this.props.state === 'check') btnTraits.push('selected');
+    if (this.props.state === CHECK) btnTraits.push('selected');
     if (this.props.disabled) btnTraits.push('disabled');
-    if (this.props.state === 'right') accText = 'Right answer: ' + accText;
-    if (this.props.state === 'wrong') accText = 'Wrong answer: ' + accText;
+    if (this.props.state === RIGHT) accText = 'Right answer: ' + accText;
+    if (this.props.state === WRONG) accText = 'Wrong answer: ' + accText;
     const Touchable = Platform.OS === 'ios' ?
       TouchableOpacity : TouchableNativeFeedback;
     return (
@@ -43,7 +58,8 @@ export default class QuizRadioButton extends React.Component {
         onPress={() => this.props.onCheck(this.props.index)}
         accessibilityTraits={btnTraits} accessibilityLabel={accText}>
         <View style={styles.container}>
-          <Image source={this._getImage(this.props.state)} />
+          <Image source={this._getImage(this.props.state)}
+            style={styles['radio_' + this.props.state]} />
           <Text style={styles.label}>{this.props.children}</Text>
         </View>
       </Touchable>
@@ -69,4 +85,16 @@ const styles = StyleSheet.create({
   state: {
     margin: 4
   },
+  radio_check: {
+    tintColor: '#00bfa5'
+  },
+  radio_uncheck: {
+    tintColor: 'rgba(0, 0, 0, 0.54)'
+  },
+  radio_right: {
+    tintColor: '#4caf50'
+  },
+  radio_wrong: {
+    tintColor: '#f44336'
+  }
 });
