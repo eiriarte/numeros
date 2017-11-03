@@ -55,7 +55,8 @@ export default class FinishScreen extends React.Component {
           <QuizScore label='Wrong' score={wrong} />
         </View>
         <View style={styles.result}>
-          <View accessible={true} accessibilityLabel={ 'Your score: ' + score + '%' }>
+          <View accessible={true} style={{ marginBottom: 32 }}
+            accessibilityLabel={ 'Your score: ' + score + '%' }>
             <Text style={styles.grade}>{score}%</Text>
           </View>
           <BetterButton title="Take another quiz" onPress={this.props.onStart}

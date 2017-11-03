@@ -11,7 +11,6 @@ export default class StartScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Ready, set, go!</Text>
         <BetterButton title="Start quiz" onPress={this.props.onStart}
           color={Platform.OS === 'android' ? '#3849aa' : '' }
           bordered={true} />
