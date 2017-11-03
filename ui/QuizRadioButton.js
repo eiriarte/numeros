@@ -47,19 +47,24 @@ export default class QuizRadioButton extends React.Component {
   render() {
     const btnTraits = ['button'];
     let accText = this.props.children;
+    let imageStyle, Touchable;
     if (this.props.state === CHECK) btnTraits.push('selected');
     if (this.props.disabled) btnTraits.push('disabled');
     if (this.props.state === RIGHT) accText = 'Right answer: ' + accText;
     if (this.props.state === WRONG) accText = 'Wrong answer: ' + accText;
-    const Touchable = Platform.OS === 'ios' ?
-      TouchableOpacity : TouchableNativeFeedback;
+    if (Platform.OS === 'ios') {
+      Touchable = TouchableOpacity;
+      imageStyle = {};
+    } else {
+      Touchable = TouchableNativeFeedback;
+      imageStyle = styles['radio_' + this.props.state];
+    }
     return (
       <Touchable disabled={this.props.disabled}
         onPress={() => this.props.onCheck(this.props.index)}
         accessibilityTraits={btnTraits} accessibilityLabel={accText}>
         <View style={styles.container}>
-          <Image source={this._getImage(this.props.state)}
-            style={styles['radio_' + this.props.state]} />
+          <Image source={this._getImage(this.props.state)} style={imageStyle} />
           <Text style={styles.label}>{this.props.children}</Text>
         </View>
       </Touchable>
@@ -72,9 +77,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 8,
-    borderWidth: StyleSheet.hairlineWidth,
-    backgroundColor: 'white',
-    borderColor: 'gray',
+    // borderWidth: StyleSheet.hairlineWidth,
+    // backgroundColor: 'white',
+    // borderColor: 'gray',
     minWidth: 180,
   },
   label: {

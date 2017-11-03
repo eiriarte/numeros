@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     padding: 8,
     marginBottom: 16,
     alignItems: 'stretch',
-    backgroundColor: '#ececec',
+    backgroundColor: 'white',
     borderColor: 'gray',
     borderRadius: 3,
     ...Platform.select({

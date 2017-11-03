@@ -129,9 +129,11 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: Constants.statusBarHeight + 44,
     paddingBottom: 50,
+    backgroundColor: '#eef0f3'
   },
   containerAndroid: {
     flex: 1,
+    backgroundColor: '#e8eaf6'
   },
   progress: {
     flexDirection: 'row'
