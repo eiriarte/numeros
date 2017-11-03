@@ -41,7 +41,7 @@ export default class FinishScreen extends React.Component {
     } else if (Platform.OS === 'android') {
       containerStyle = styles.containerAndroid;
       progressBar = <ProgressBarAndroid styleAttr='Horizontal' indeterminate={false}
-        style={{ width: '100%' }} progress={1}/>
+        style={{ width: '100%' }} progress={1} color='#00bfa5'/>
     }
     return (
       <View style={containerStyle}>
@@ -49,7 +49,7 @@ export default class FinishScreen extends React.Component {
           accessibilityLabel={accProgressText} ref={(elem) => { this.scorePanel = elem; }}>
           <QuizScore label='Right' score={right} />
           <View style={styles.progressView}>
-            <Text>{total} of {total}</Text>
+            <Text style={styles.label}>{total} of {total}</Text>
             {progressBar}
           </View>
           <QuizScore label='Wrong' score={wrong} />
@@ -79,6 +79,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#e8eaf6'
   },
+  label: {
+    color: 'rgba(0, 0, 0, 0.87)'
+  },
   progress: {
     flexDirection: 'row'
   },
@@ -93,6 +96,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   grade: {
-    fontSize: 32
+    fontSize: 32,
+    color: 'rgba(0, 0, 0, 0.87)'
   }
 });

@@ -95,7 +95,7 @@ export default class QuizScreen extends React.Component {
     } else if (Platform.OS === 'android') {
       containerStyle = styles.containerAndroid;
       progressBar = <ProgressBarAndroid styleAttr='Horizontal' indeterminate={false}
-        style={{ width: '100%' }} progress={current/total}/>
+        style={{ width: '100%' }} progress={current/total} color='#00bfa5'/>
     }
     return (
       <View style={containerStyle}>
@@ -103,7 +103,7 @@ export default class QuizScreen extends React.Component {
           accessibilityLabel={accProgressText} ref={(elem) => { this.scorePanel = elem; }}>
           <QuizScore label='Right' score={this.state.right} />
           <View style={styles.progressView}>
-            <Text>{current} of {total}</Text>
+            <Text style={styles.label}>{current} of {total}</Text>
             {progressBar}
           </View>
           <QuizScore label='Wrong' score={this.state.wrong} />
@@ -134,6 +134,9 @@ const styles = StyleSheet.create({
   containerAndroid: {
     flex: 1,
     backgroundColor: '#e8eaf6'
+  },
+  label: {
+    color: 'rgba(0, 0, 0, 0.87)'
   },
   progress: {
     flexDirection: 'row'

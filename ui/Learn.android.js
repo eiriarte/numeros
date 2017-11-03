@@ -94,5 +94,6 @@ const styles = StyleSheet.create({
   itemTitle: {
     flex: 1,
     fontSize: 18,
+    color: 'rgba(0, 0, 0, 0.87)'
   }
 });

@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
   question: {
     marginBottom: 4,
     textAlign: 'center',
-    fontSize: 32
+    fontSize: 32,
+    color: 'rgba(0, 0, 0, 0.87)'
   },
 });

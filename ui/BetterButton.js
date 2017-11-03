@@ -70,10 +70,11 @@ class BetterButton extends React.Component {
       accessibilityTraits.push('disabled');
     }
     const Touchable = Platform.OS === 'android' ? TouchableNativeFeedback : TouchableOpacity;
+    const rippleColor = light ? 'rgba(0, 0, 0, 0.26)' : 'rgba(255, 255, 255, 0.26)';
     return (
       <Touchable
         background={TouchableNativeFeedback.Ripple &&
-          TouchableNativeFeedback.Ripple('rgba(255, 255, 255, 0.26)', false)}
+          TouchableNativeFeedback.Ripple(rippleColor, false)}
         accessibilityComponentType='button'
         accessibilityLabel={accessibilityLabel}
         accessibilityTraits={accessibilityTraits}
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white'
   },
   textLight: {
-    color: 'black'
+    color: 'rgba(0, 0, 0, 0.87)'
   },
   buttonInverse: {
     backgroundColor: '#007AFF',

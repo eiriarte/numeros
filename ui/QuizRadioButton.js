@@ -85,7 +85,8 @@ const styles = StyleSheet.create({
   label: {
     margin: 4,
     paddingLeft: 4,
-    fontSize: 20
+    fontSize: 20,
+    color: 'rgba(0, 0, 0, 0.87)'
   },
   state: {
     margin: 4

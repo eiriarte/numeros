@@ -98,7 +98,8 @@ export default class NavigatorTranslator extends React.Component {
         <SinglePickerMaterialDialog title='Type of numeral'
           items={grammarOptions} selectedItem={this.state.grammarSelected}
           visible={this.state.grammarModalVisible} onOk={this._onGrammarChanged}
-          onCancel={() => this.setState({ grammarModalVisible: false })} />
+          onCancel={() => this.setState({ grammarModalVisible: false })}
+          colorAccent='#00bfa5' />
         <ToolbarAndroid
           style={styles.toolbar} title='Numbers' titleColor='#ffffff'
           actions={[

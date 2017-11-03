@@ -29,5 +29,6 @@ const styles = StyleSheet.create({
   },
   score: {
     fontSize: 24,
+    color: 'rgba(0, 0, 0, 0.87)'
   },
 });

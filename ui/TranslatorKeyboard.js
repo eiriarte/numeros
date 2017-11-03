@@ -102,6 +102,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#ececec'
   },
   digitText: {
-    color: 'black'
+    color: 'rgba(0, 0, 0, 0.87)'
   }
 });
