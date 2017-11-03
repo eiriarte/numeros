@@ -16,6 +16,9 @@ class ListItem extends React.Component {
       <TouchableNativeFeedback onPress={this.onItemClick}
         accessibilityComponentType='button' accessibilityTraits='button'>
         <View style={styles.item}>
+          <Image
+            source={require('../img/android_doc.png')}
+            style={styles.listIcon}/>
           <Text style={styles.itemTitle} numberOfLines={1} >
             {this.props.item.title}
           </Text>
@@ -65,7 +68,9 @@ const styles = StyleSheet.create({
   },
   scrollview: {
     flex: 1,
-    backgroundColor: '#eef0f3'
+  },
+  contentContainer: {
+    paddingTop: 8
   },
   toolbar: {
     backgroundColor: '#3849aa',
@@ -76,10 +81,14 @@ const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 16,
+    height: 48,
+    paddingLeft: 16,
+    paddingRight: 16,
     backgroundColor: 'white',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: 'lightgray'
+  },
+  listIcon: {
+    tintColor: 'rgba(0, 0, 0, 0.54)',
+    marginRight: 32
   },
   itemTitle: {
     flex: 1,
