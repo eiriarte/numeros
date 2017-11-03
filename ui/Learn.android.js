@@ -64,10 +64,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#fff',
+    backgroundColor: '#3849aa'
   },
   scrollview: {
     flex: 1,
+    backgroundColor: '#fff',
   },
   contentContainer: {
     paddingTop: 8

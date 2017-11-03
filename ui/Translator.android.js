@@ -120,9 +120,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
+    backgroundColor: '#3849aa'
   },
   toolbar: {
     backgroundColor: '#3849aa',

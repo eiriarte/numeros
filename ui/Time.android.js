@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: '#fff',
+    backgroundColor: '#3849aa'
   },
   toolbar: {
     backgroundColor: '#3849aa',
@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
     elevation: 6
   },
   output: {
+    backgroundColor: '#fff',
     width: '100%',
     flex: 1,
     alignItems: 'center',

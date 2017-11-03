@@ -33,6 +33,7 @@ export default class TranslatorOutput extends React.Component {
 
 const styles = StyleSheet.create({
   scroll: {
+    backgroundColor: '#fff',
     width: '100%',
     flex: 1,
   },
