@@ -32,8 +32,12 @@ export default class TranslatorKeyboard extends React.Component {
         textStyles.push(styles.digitText);
       }
       let key = <Text style={textStyles}>{keyLabel}</Text>;
-      if (keyLabel === 'GRA') {
-        key = <Text style={styles.keyText}>{this.props.grammar}</Text>;
+      if (keyLabel === 'C') {
+        key = <Text style={textStyles} accessibilityLabel='Clear'>{keyLabel}</Text>;
+      } else if (keyLabel === 'GRA') {
+        key = <Text style={styles.keyText}
+          accessibilityLabel={ 'Type of number: ' + this.props.grammar }>
+          {this.props.grammar}</Text>;
       } else if (keyLabel === 'DEL') {
         key = <Image source={backspace} style={{ tintColor: '#555555' }}
           accessibilityLabel='Backspace' />;

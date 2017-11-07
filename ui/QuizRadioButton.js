@@ -48,7 +48,13 @@ export default class QuizRadioButton extends React.Component {
     const btnTraits = ['button'];
     let accText = this.props.children;
     let imageStyle, Touchable;
-    if (this.props.state === CHECK) btnTraits.push('selected');
+    let componentType;
+    if (this.props.state === CHECK) {
+      btnTraits.push('selected');
+      componentType = 'radiobutton_checked';
+    } else {
+      componentType = 'radiobutton_unchecked';
+    }
     if (this.props.disabled) btnTraits.push('disabled');
     if (this.props.state === RIGHT) accText = 'Right answer: ' + accText;
     if (this.props.state === WRONG) accText = 'Wrong answer: ' + accText;
@@ -62,7 +68,8 @@ export default class QuizRadioButton extends React.Component {
     return (
       <Touchable disabled={this.props.disabled}
         onPress={() => this.props.onCheck(this.props.index)}
-        accessibilityTraits={btnTraits} accessibilityLabel={accText}>
+        accessibilityTraits={btnTraits} accessibilityLabel={accText}
+        accessibilityComponentType={componentType}>
         <View style={styles.container}>
           <Image source={this._getImage(this.props.state)} style={imageStyle} />
           <Text style={styles.label}>{this.props.children}</Text>
