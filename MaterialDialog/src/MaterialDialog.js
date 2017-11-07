@@ -14,7 +14,7 @@ const {height, width} = Dimensions.get('window');
 class ActionButton extends Component {
   render() {
     return (
-      <TouchableNativeFeedback
+      <TouchableNativeFeedback accessibilityComponentType='button'
         underlayColor={colors.androidPressedUnderlay}
         onPress={this.props.onPress}>
         <View style={styles.actionContainer}>

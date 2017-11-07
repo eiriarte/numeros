@@ -70,18 +70,20 @@ export default class SinglePickerMaterialDialog extends Component {
   }
 
   renderRow = (row, sectionID, rowID) => {
-    let checkImg, checkTint;
+    let checkImg, checkTint, componentType;
 
     if (row.selected) {
       checkImg = require('../img/android_radio_checked.png');
       checkTint = this.props.colorAccent;
+      componentType = 'radiobutton_checked';
     } else {
       checkImg = require('../img/android_radio_unchecked.png');
       checkTint = 'rgba(0, 0, 0, 0.54)';
+      componentType = 'radiobutton_unchecked';
     }
 
     return (
-      <TouchableNativeFeedback
+      <TouchableNativeFeedback accessibilityComponentType={componentType}
         key={row.value} onPress={() => this.onRowPress(rowID)}>
         <View
           style={styles.rowContainer}>
