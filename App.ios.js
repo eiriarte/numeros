@@ -28,6 +28,11 @@ export default class TabbedUI extends React.Component {
       require('./data/uses-time.html')
     ]);
   }
+
+  componentWillMount() {
+    StatusBar.setBarStyle('dark-content');
+  }
+
   render() {
     if (!this.state.isReady) {
       return (
@@ -38,8 +43,6 @@ export default class TabbedUI extends React.Component {
         />
       );
     }
-
-    StatusBar.setBarStyle('dark-content');
 
     return (
       <TabBarIOS>
