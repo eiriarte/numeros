@@ -41,11 +41,7 @@ export default class App extends React.Component {
       require('./data/cardinals-0-30.html'),
       require('./data/cardinals-31-100.html'),
       require('./data/uses-dates.html'),
-      require('./data/uses-time.html'),
-      require('./img/pr_state_check.png'),
-      require('./img/pr_state_right.png'),
-      require('./img/pr_state_uncheck.png'),
-      require('./img/pr_state_wrong.png')
+      require('./data/uses-time.html')
     ]);
   }
 }

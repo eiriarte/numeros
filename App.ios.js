@@ -1,5 +1,5 @@
 import React from 'react';
-import { TabBarIOS, Text, View, Image } from 'react-native';
+import { StatusBar, TabBarIOS } from 'react-native';
 import { AppLoading, Asset } from 'expo';
 
 import NavigatorTranslator from './ui/Translator';
@@ -38,6 +38,8 @@ export default class TabbedUI extends React.Component {
         />
       );
     }
+
+    StatusBar.setBarStyle('dark-content');
 
     return (
       <TabBarIOS>
