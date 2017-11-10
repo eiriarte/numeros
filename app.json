@@ -3,6 +3,15 @@
     "sdkVersion": "22.0.0",
     "slug": "spanish-numbers",
     "name": "Spanish Numbers",
-    "orientation": "portrait"
+    "orientation": "portrait",
+    "version": "1.0.0",
+    "primaryColor": "#3849aa",
+    "icon": "./img/icon_android.png",
+    "ios": {
+      "icon": "./img/icon_ios.png"
+    },
+    "android": {
+      "icon": "./img/icon_android.png"
+    }
   }
 }
