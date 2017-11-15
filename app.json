@@ -4,13 +4,18 @@
     "slug": "numeros",
     "name": "Números",
     "orientation": "portrait",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "primaryColor": "#3849aa",
     "icon": "./img/icon_android.png",
+    "splash": {
+      "image": "./img/splash.png",
+      "backgroundColor": "#b3ddff",
+      "resizeMode": "cover"
+    },
     "ios": {
       "icon": "./img/icon_ios.png",
       "bundleIdentifier": "com.perfektemo.ios.numeros",
-      "buildNumber": "2.0.0"
+      "buildNumber": "2.0.1"
     },
     "android": {
       "icon": "./img/icon_android.png",
