@@ -1,17 +1,21 @@
 {
   "expo": {
     "sdkVersion": "22.0.0",
-    "slug": "spanish-numbers",
-    "name": "Spanish Numbers",
+    "slug": "numeros",
+    "name": "Números",
     "orientation": "portrait",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "primaryColor": "#3849aa",
     "icon": "./img/icon_android.png",
     "ios": {
-      "icon": "./img/icon_ios.png"
+      "icon": "./img/icon_ios.png",
+      "bundleIdentifier": "com.perfektemo.ios.numeros",
+      "buildNumber": "2.0.0"
     },
     "android": {
-      "icon": "./img/icon_android.png"
+      "icon": "./img/icon_android.png",
+      "package": "com.perfektemo.android.numeros",
+      "versionCode": 4
     }
   }
 }
