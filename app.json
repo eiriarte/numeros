@@ -14,12 +14,12 @@
     },
     "ios": {
       "icon": "./img/icon_ios.png",
-      "bundleIdentifier": "com.perfektemo.ios.numeros",
+      "bundleIdentifier": "com.perfektemo.ios.numeros.2",
       "buildNumber": "2.0.1"
     },
     "android": {
       "icon": "./img/icon_android.png",
-      "package": "com.perfektemo.android.numeros",
+      "package": "com.perfektemo.android.numeros.2",
       "versionCode": 4
     }
   }
