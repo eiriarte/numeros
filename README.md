@@ -1,3 +1,9 @@
+# Numeros
+
+Android/iOS app for Spanish learners. It teaches everything about Spanish numerals, including dates, time, tests, etc.
+
+**DISCLAIMER**: This repository has seriously outdated dependencies. They may contain **security vulnerabilities**. I'm not maintaining this project anymore. Use at your own risk.
+
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
